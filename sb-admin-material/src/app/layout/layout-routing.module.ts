@@ -17,6 +17,10 @@ const routes: Routes = [
                 loadChildren: './dashboard/dashboard.module#DashboardModule'
             },
             {
+                path: 'claim',
+                loadChildren: './claim/claim.module#ClaimModule'
+            },
+            {
                 path: 'profile',
                 loadChildren: './profile/profile.module#ProfileModule'
             },

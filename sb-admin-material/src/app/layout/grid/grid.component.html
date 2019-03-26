@@ -1,13 +1,13 @@
 <div class="mb-20" fxFlex fxLayout="row" fxLayout.lt-md="column">
     <div fxFlex>
         <mat-card fxFlexFill fxLayoutAlign="center center">
-            100%
+            Données Adhérent 
         </mat-card>
     </div>
 </div>
-
+<!--
 <div class="mb-20" fxFlex fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px">
-    <div fxFlex *ngFor="let i of [50, 50]">
+    <div fxFlex *ngFor="let i of [33.33, 33.33, 33.33]">
         <mat-card fxFlexFill fxLayoutAlign="center center">
             {{i}}%
         </mat-card>
@@ -37,24 +37,7 @@
         </mat-card>
     </div>
 </div>
-
-<div class="mb-20" fxFlex fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px">
-    <div [fxFlex]="15">
-        <mat-card fxFlexFill fxLayoutAlign="center center">
-            15%
-        </mat-card>
-    </div>
-    <div [fxFlex]="25">
-        <mat-card fxFlexFill fxLayoutAlign="center center">
-            25%
-        </mat-card>
-    </div>
-    <div [fxFlex]="60">
-        <mat-card fxFlexFill fxLayoutAlign="center center">
-            60%
-        </mat-card>
-    </div>
-</div>
+-->
 
 <!-- <div fxFlexFill [fxLayout]="'row wrap'" fxLayoutGap="20px grid">
     <div fxFlex="25">
@@ -93,3 +76,25 @@
         </mat-card>
     </div>
 </div> -->
+
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>Form Field</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <mat-form-field>
+            <input matInput placeholder="Input">
+        </mat-form-field>
+  
+       <!-- <mat-form-field>
+            <textarea matInput placeholder="Textarea"></textarea>
+        </mat-form-field>-->
+  
+        <mat-form-field>
+            <mat-select placeholder="Select">
+                <mat-option value="option">Option</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </mat-card-content>
+  </mat-card>
+  

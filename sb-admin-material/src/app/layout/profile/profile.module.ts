@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ProfileRoutingModule } from './profile-routing.module';
 import { ProfileComponent } from './profile.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import {Member} from '../../interfaces/member';
 import { FormsModule as FormModule, ReactiveFormsModule } from '@angular/forms';
 import {
     MatAutocompleteModule, MatCardModule, MatCheckboxModule, MatDatepickerModule,

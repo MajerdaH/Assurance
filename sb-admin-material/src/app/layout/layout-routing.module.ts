@@ -34,7 +34,7 @@ const routes: Routes = [
                 loadChildren: './forms/forms.module#FormsModule'
             },
             {
-                path: 'grid',
+                path: 'enrollment',
                 loadChildren: './grid/grid.module#GridModule'
             },
             {

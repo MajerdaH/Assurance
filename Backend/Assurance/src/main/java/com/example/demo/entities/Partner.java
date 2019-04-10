@@ -1,5 +1,7 @@
 package com.example.demo.entities;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,7 +12,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="PRESTA")
-public class Partner {
+public class Partner implements Serializable {
 	
     @SequenceGenerator(name = "presta_seq", sequenceName = "presta_seq")
     

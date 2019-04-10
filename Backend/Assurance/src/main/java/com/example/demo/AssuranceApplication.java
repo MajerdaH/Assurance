@@ -17,8 +17,11 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.orm.hibernate5.SessionFactoryUtils;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
+
+@EnableTransactionManagement
 
 @EnableAutoConfiguration(exclude = { //
         DataSourceAutoConfiguration.class, //
@@ -72,18 +75,26 @@ public class AssuranceApplication {
 	        factoryBean.setDataSource(dataSource);
 	        factoryBean.setHibernateProperties(properties);
 	        factoryBean.afterPropertiesSet();
+	        System.out.println("## 111111111 getSessionFactory:"+factoryBean.getHibernateProperties());
 	        //
 	        SessionFactory sf = factoryBean.getObject();
-	        System.out.println("## getSessionFactory: " + sf);
+	        if(sf==null) System.out.println("session is null");
+	        System.out.println("## 22222222222 getSessionFactory: " + sf);
 	        return sf;
 	    }
 	 
 	    @Autowired
 	    @Bean(name = "transactionManager")
-	    public HibernateTransactionManager getTransactionManager(SessionFactory sessionFactory) {
-	        HibernateTransactionManager transactionManager = new HibernateTransactionManager(sessionFactory);
+	    public HibernateTransactionManager getTransactionManager(SessionFactory sessionFactory) throws Exception {
+	        HibernateTransactionManager transactionManager = new HibernateTransactionManager(getSessionFactory(getDataSource()));
 	 
 	        return transactionManager;
 
 }
+	   /* @Autowired
+		@Bean
+		public HibernateTransactionManager hibernateTransactionManager() throws Exception{
+		     return new HibernateTransactionManager(getSessionFactory(getDataSource()));
+		}*/
+
 }

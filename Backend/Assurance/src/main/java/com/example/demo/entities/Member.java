@@ -1,5 +1,8 @@
 package com.example.demo.entities;
 
+import java.io.Serializable;
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,16 +13,16 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="Adherent")
-public class Member {
+public class Member implements Serializable{
 		   
 	 
 	 @Id
 	 @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "adherent_seq")
-	 private Long numP;//ponum
+	 private BigDecimal numP;//ponum
 	 
-	 private int mat;
-	 private int nom;
-	 private int prenom;
+	 private String mat;
+	 private String nom;
+	 private String prenom;
 	 private String DateN;
 	 private char typeD;
 	 private String numD;
@@ -32,34 +35,34 @@ public class Member {
 	 private String tel;
 	 private char sit;
 	 private String rib;
-	public Long getNumP() {
+	public BigDecimal getNumP() {
 		return numP;
 	}
-	public void setNumP(Long numP) {
+	public void setNumP(BigDecimal numP) {
 		this.numP = numP;
 	}
 	
 	@Column(name="MAT")
-	public int getMat() {
+	public String getMat() {
 		return mat;
 	}
-	public void setMat(int mat) {
+	public void setMat(String mat) {
 		this.mat = mat;
 	}
 	
 	@Column(name="NOM")
-	public int getNom() {
+	public String getNom() {
 		return nom;
 	}
-	public void setNom(int nom) {
+	public void setNom(String nom) {
 		this.nom = nom;
 	}
 	
 	@Column(name="PRENOM")
-	public int getPrenom() {
+	public String getPrenom() {
 		return prenom;
 	}
-	public void setPrenom(int prenom) {
+	public void setPrenom(String prenom) {
 		this.prenom = prenom;
 	}
 	

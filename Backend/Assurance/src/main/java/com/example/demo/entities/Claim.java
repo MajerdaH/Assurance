@@ -1,5 +1,6 @@
 package com.example.demo.entities;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -12,7 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="Reclamation")
-public class Claim {
+public class Claim implements Serializable{
 	@SequenceGenerator(name = "reclamation_seq", sequenceName = "reclamation_seq")
 	 
 	@Id

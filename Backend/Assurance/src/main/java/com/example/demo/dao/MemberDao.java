@@ -8,8 +8,8 @@ import com.example.demo.entities.Member;
 	public interface MemberDao {
 	 
 	    
-	    public Member findById(Long id);
+	    public Member findById();
 
 	    
-	    public List<Member> getMembersList();
+	//    public List<Member> getMembersList();
 }

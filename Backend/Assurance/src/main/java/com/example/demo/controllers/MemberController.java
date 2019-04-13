@@ -24,9 +24,10 @@ public class MemberController {
 
 	@RequestMapping("/getMemberById")
 	  @ResponseBody
-	  public String index() throws JsonProcessingException {
+	  public String index(){
 		 ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-		 String json = ow.writeValueAsString(this.memberDao.findById());
+		 String json =null;
+		 //ow.writeValueAsString(this.memberDao.findById());
 		 //MemberDaoImpl dao = new MemberDaoImpl();
 		 //dao.findById((long)111);
 //		this.memberDao.findById();

@@ -16,8 +16,8 @@ import javax.persistence.Table;
 public class Member implements Serializable{
 		   
 	 
+	// @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "adherent_seq")
 	 @Id
-	 @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "adherent_seq")
 	 private BigDecimal numP;//ponum
 	 
 	 private String mat;

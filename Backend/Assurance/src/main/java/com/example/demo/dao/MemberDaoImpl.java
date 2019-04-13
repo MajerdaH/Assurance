@@ -28,7 +28,7 @@ import com.example.demo.entities.Member;
 	    
 	    }
 
-	    Logger logger = LoggerFactory.getLogger(MemberDao.class);
+	    Logger logger = LoggerFactory.getLogger(MemberDaoImpl.class);
 	 
 	 
 	    public Member findById() {

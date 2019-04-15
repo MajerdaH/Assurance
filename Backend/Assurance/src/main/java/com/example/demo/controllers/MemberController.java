@@ -1,10 +1,15 @@
 package com.example.demo.controllers;
 
+import java.math.BigDecimal;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.dao.MemberDao;
@@ -21,17 +26,18 @@ public class MemberController {
 	 private MemberDao memberDao;
 
 
-
-	@RequestMapping("/getMemberById")
+	  @RequestMapping(value = "/getMemberBy/{id}", method = RequestMethod.GET)
 	  @ResponseBody
-	  public String index(){
+	  public String index(@PathVariable int id) {
 		 ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
 		 String json =null;
-		 //ow.writeValueAsString(this.memberDao.findById());
-		 //MemberDaoImpl dao = new MemberDaoImpl();
-		 //dao.findById((long)111);
-//		this.memberDao.findById();
-		  
+		 System.out.println("id="+id);
+		 try {
+			 json=	ow.writeValueAsString(memberDao.findById(BigDecimal.valueOf(id)));
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	    return json;
 	  }
 	 

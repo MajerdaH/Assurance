@@ -1,6 +1,7 @@
 package com.example.demo.entities;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -18,19 +19,20 @@ public class Claim implements Serializable{
 	 
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "reclamation_seq")  	
-	private int id;
+	private BigDecimal id;
 	
 	private String type;
 	private String description;
 	private Date dateClaim;
 	private boolean status;
 	private String joinedFile;
+	private String matricule;
 	
 	@Column(name="ID")
-	public int getId() {
+	public BigDecimal getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(BigDecimal id) {
 		this.id = id;
 	}
 	
@@ -72,6 +74,12 @@ public class Claim implements Serializable{
 	}
 	public void setJoinedFile(String joinedFile) {
 		this.joinedFile = joinedFile;
+	}
+	public String getMatricule() {
+		return matricule;
+	}
+	public void setMatricule(String matricule) {
+		this.matricule = matricule;
 	}
 
 

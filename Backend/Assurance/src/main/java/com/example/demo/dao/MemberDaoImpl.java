@@ -31,40 +31,33 @@ import com.example.demo.entities.Member;
 	    Logger logger = LoggerFactory.getLogger(MemberDaoImpl.class);
 	 
 	 
-	    public Member findById() {
-	    	 logger.info("8888888888888888888888888888888");
-
-	    	 String sql = "select * from adherent where nump=111";
+	    public Member findById(BigDecimal id) {
+	    	logger.info("id"+id);
+	    	 String sql = "select * from adherent where nump="+id;
 	    	 Session session;
 	    	 try{
-	    		  logger.info("6666666666666666666666666666666666666");
-		         session = this.sessionFactory.openSession();
-		         logger.info("777777777777777777777777777777777777777");
+		         session = this.sessionFactory.getCurrentSession();
 
 	    	 }catch(Exception e){
-	    		 logger.debug("999999999999999999999999999999999999");
 	    		 session = this.sessionFactory.openSession();
 	    	 }
 		        SQLQuery  query = session.createSQLQuery(sql);
-		        logger.info("333333333333333333333333"+query.toString());
-		        logger.info(query.getQueryString());
-		        logger.info("8888888888"+query.getResultList().size());
+		    //    query.setParameter("id", id);
 		        Member member =new Member();
-		       
+		       logger.info("result"+query.getResultList().size());
+		        if(query.getResultList().size()>0){
 		        for (Object ligneAsObject : query.getResultList()) {
 
-		            // ligne correspond à une des lignes du résultat
 		           Object[] ligne = (Object[]) ligneAsObject ;
 		       	
-		            // cette liste est composée de deux éléments : nom et prenom
 		           member.setNumP((BigDecimal)ligne[0] );
 		           member.setMat((String)ligne[1]) ;
 		           member.setNom((String)ligne[2]);
 		           member.setPrenom((String)ligne[3]);
-		           member.setDateN((String)ligne[4]);
+		           member.setDateN((String)ligne[4]);}
+		        }
+		        else {member.setNumP(BigDecimal.ZERO);}
 		       
-		       }
-		      
 		      return member;
 		        		
 	    }

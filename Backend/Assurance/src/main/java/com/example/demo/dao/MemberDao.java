@@ -9,7 +9,7 @@ import com.example.demo.entities.Member;
 	public interface MemberDao {
 	 
 	    
-	    public Member findById(BigDecimal id);
+	    public Member findById(BigDecimal ponum, String mat);
 
 	    
 	//    public List<Member> getMembersList();

@@ -2,40 +2,38 @@ package com.example.demo.controllers;
 
 import java.math.BigDecimal;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.dao.MemberDao;
-import com.example.demo.dao.MemberDaoImpl;
+import com.example.demo.dao.RefundDao;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 
+
 @Controller
-public class MemberController {
+public class RefundController {
 	
 	
-	  @Autowired
-	 private MemberDao memberDao;
+	 @Autowired
+	 private RefundDao refundDao;
 
 
-	   @CrossOrigin(origins = "http://localhost:4200")
-	  @RequestMapping(value = "/getMemberBy/{mat}/{ponum}", method = RequestMethod.GET)
+	   @CrossOrigin(origins = "http://localhost:9000")
+	  @RequestMapping(value = "/getMemberRefundsBy/{mat}/{ponum}", method = RequestMethod.GET)
 	  @ResponseBody
 	  public String index(@PathVariable String mat,@PathVariable BigDecimal ponum) {
 		 ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
 		 String json =null;
 		 System.out.println("ponum==="+ponum);
 		 try {
-			 json=	ow.writeValueAsString(memberDao.findById(ponum, mat));
+			 json=	ow.writeValueAsString(refundDao.getRefundsByMatAndPonum(ponum, mat));
 		} catch (JsonProcessingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -43,16 +41,5 @@ public class MemberController {
 	    return json;
 	  }
 	 
-	 
-	/* 
-	 @RequestMapping("/getMembers")
-	  @ResponseBody
-	  public String getMembers() throws JsonProcessingException {
-		// ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-		 //String json = ow.writeValueAsString(memberdao.getMembersList());
-		  
-	    return memberDao.getMembersList().toString();
-	  }
-*/
 
 }

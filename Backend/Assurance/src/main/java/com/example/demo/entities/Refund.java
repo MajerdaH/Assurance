@@ -1,6 +1,7 @@
 package com.example.demo.entities;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.sql.Date;
 
 import javax.persistence.Column;
@@ -13,17 +14,17 @@ public class Refund implements Serializable{
 	private String companyPolice;
 	private String membetMat;
 	private String wCode;
-	private Date careDate;
+	private String careDate;
 	private String pharmacyRub;
 	
 	@Id
 	private String bulletinNumber;
-	private int bourderau;
-	private int refundedUnities;
-	private int engagedUnities;
-	private float payedAmount;
-	private float refundedAmount;
-	private Date settlementDate;
+	private BigDecimal bourderau;
+	private BigDecimal refundedUnities;
+	private BigDecimal engagedUnities;
+	private BigDecimal payedAmount;
+	private BigDecimal refundedAmount;
+	private String settlementDate;
 	
 	@Column(name = "WPOL")
 	public String getCompanyPolice() {
@@ -47,10 +48,10 @@ public class Refund implements Serializable{
 		this.wCode = wCode;
 	}
 	@Column(name = "W_DATE")
-	public Date getCareDate() {
+	public String getCareDate() {
 		return careDate;
 	}
-	public void setCareDate(Date careDate) {
+	public void setCareDate(String careDate) {
 		this.careDate = careDate;
 	}
 	@Column(name = "W_RUB")
@@ -69,45 +70,45 @@ public class Refund implements Serializable{
 	}
 	
 	@Column(name = "W_MRP")
-	public int getBourderau() {
+	public BigDecimal getBourderau() {
 		return bourderau;
 	}
-	public void setBourderau(int bourderau) {
+	public void setBourderau(BigDecimal bourderau) {
 		this.bourderau = bourderau;
 	}
 	@Column(name = "W_JRP")
-	public int getRefundedUnities() {
+	public BigDecimal getRefundedUnities() {
 		return refundedUnities;
 	}
-	public void setRefundedUnities(int refundedUnities) {
+	public void setRefundedUnities(BigDecimal refundedUnities) {
 		this.refundedUnities = refundedUnities;
 	}
 	@Column(name = "W_JJP")
-	public int getEngagedUnities() {
+	public BigDecimal getEngagedUnities() {
 		return engagedUnities;
 	}
-	public void setEngagedUnities(int engagedUnities) {
+	public void setEngagedUnities(BigDecimal engagedUnities) {
 		this.engagedUnities = engagedUnities;
 	}
 	@Column(name = "W_MBP")
-	public float getPayedAmount() {
+	public BigDecimal getPayedAmount() {
 		return payedAmount;
 	}
-	public void setPayedAmount(float payedAmount) {
+	public void setPayedAmount(BigDecimal payedAmount) {
 		this.payedAmount = payedAmount;
 	}
 	@Column(name = "W_MBR")
-	public float getRefundedAmount() {
+	public BigDecimal getRefundedAmount() {
 		return refundedAmount;
 	}
-	public void setRefundedAmount(float refundedAmount) {
+	public void setRefundedAmount(BigDecimal refundedAmount) {
 		this.refundedAmount = refundedAmount;
 	}
 	@Column(name = "DS")
-	public Date getSettlementDate() {
+	public String getSettlementDate() {
 		return settlementDate;
 	}
-	public void setSettlementDate(Date settlementDate) {
+	public void setSettlementDate(String settlementDate) {
 		this.settlementDate = settlementDate;
 	}
 	

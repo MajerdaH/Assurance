@@ -31,9 +31,9 @@ import com.example.demo.entities.Member;
 	    Logger logger = LoggerFactory.getLogger(MemberDaoImpl.class);
 	 
 	 
-	    public Member findById(BigDecimal id) {
-	    	logger.info("id"+id);
-	    	 String sql = "select * from adherent where nump="+id;
+	    public Member findById(BigDecimal ponum, String mat) {
+	    	//logger.info("id"+id);
+	    	 String sql = "select * from adherent where nump="+ponum +" and mat='"+mat+"'";
 	    	 Session session;
 	    	 try{
 		         session = this.sessionFactory.getCurrentSession();

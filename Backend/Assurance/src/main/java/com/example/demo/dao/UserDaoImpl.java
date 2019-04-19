@@ -55,7 +55,8 @@ public class UserDaoImpl implements UserDao{
 	            user.setUsername((String)ligne[1]);
 	            user.setPassword((String)ligne[2]);
 	            user.setRole((String)ligne[3]);
-	            user.setMemberId((BigDecimal)ligne[4]);
+	            user.setPonum((BigDecimal)ligne[4]);
+	            user.setMat((String)ligne[5]);
 	         return user;    
    	 }catch(Exception e){
    		 logger.error(e.getMessage()); 

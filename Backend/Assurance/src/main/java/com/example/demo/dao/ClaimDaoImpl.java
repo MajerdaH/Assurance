@@ -21,7 +21,7 @@ import com.example.demo.entities.Member;
 
 	@Service
 	@Transactional 
-	@Repository("memberDao")
+	@Repository("claimDao")
 	public class ClaimDaoImpl implements ClaimDao {
 		 
 		    @Autowired

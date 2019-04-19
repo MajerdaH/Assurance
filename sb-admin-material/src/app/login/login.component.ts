@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
     signupfrm:any;
     memberId:String;
     role:String;
-    private _loginUrl = 'http://localhost/login'; 
+    private _loginUrl = 'http://localhost:8080/login'; 
     constructor(private router: Router, private formb: FormBuilder, private _http: HttpClient) {
         this.signupfrm =new FormGroup({
             email: new FormControl(),
@@ -29,25 +29,33 @@ export class LoginComponent implements OnInit {
     onLogin() {
  
        console.log(this.signupfrm.value.email);
-        this.body = new HttpParams()
-       .set('login', this.signupfrm.value.email)
-       .set('password', 'this.signupfrm.value.password');
+     //  this.body = new HttpParams()
+       //.set('login', this.signupfrm.value.email)
+       //.set('password', this.signupfrm.value.password);
+       this.body= {};
+       this.body['login'] = this.signupfrm.value.email;
+       this.body['password'] = this.signupfrm.value.password;
+       //'{"login":"'
+       //+this.signupfrm.value.email+'","password":"'+this.signupfrm.value.password+'"}';
        
          this._http.post(this._loginUrl,
-            this.body.toString(),
+          this.body,
             {
               headers: new HttpHeaders()
-                .set('Content-Type', 'application/x-www-form-urlencoded')
+                .set('Content-Type', 'application/json')
             }
           )
         .pipe(
         catchError(this.handleError) // then handle the error
        ).subscribe(resp => {
-      if( resp['memberId']!='0'){
-          this.memberId=resp['memberId'];
+      if( resp['ponum']!='0'){
+          let ponum=resp['ponum'];
+          let mat=resp['mat'];
+          console.log(mat +"    >>>    "+ponum)
           this.role=resp['role'];
           localStorage.setItem('isLoggedin', 'true');
-        this.router.navigate(['/dashboard']);
+          if(this.role=='member'){
+        this.router.navigate(['/dashboard']);}
       }
       else {
         localStorage.setItem('isLoggedin', 'false');

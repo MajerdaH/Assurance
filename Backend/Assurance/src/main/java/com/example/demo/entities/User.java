@@ -18,7 +18,9 @@ import java.util.Set;
 	    
 	    private String role; 
 	    
-	    private BigDecimal memberId;
+	    private BigDecimal ponum;
+	    
+	    private String mat;
 
 
 	    public BigDecimal getId() {
@@ -53,12 +55,20 @@ import java.util.Set;
 			this.role = role;
 		}
 
-		public BigDecimal getMemberId() {
-			return memberId;
+		public BigDecimal getPonum() {
+			return ponum;
 		}
 
-		public void setMemberId(BigDecimal memberId) {
-			this.memberId = memberId;
+		public void setPonum(BigDecimal ponum) {
+			this.ponum = ponum;
+		}
+
+		public String getMat() {
+			return mat;
+		}
+
+		public void setMat(String mat) {
+			this.mat = mat;
 		}
 
 	}

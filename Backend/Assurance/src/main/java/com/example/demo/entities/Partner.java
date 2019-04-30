@@ -1,6 +1,7 @@
 package com.example.demo.entities;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,68 +17,32 @@ public class Partner implements Serializable {
 	
     @SequenceGenerator(name = "presta_seq", sequenceName = "presta_seq")
     
+      
+    private String adpoma;
+    
     @Id
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "partner_Sequence")
-    private Long id;
-    private char adpoma;
-    private char prpomt;
+    private String prpomt;
     
     @Column(name="PRPOMT")
-    public char getPrpomt() {
+    public String getPrpomt() {
 		return prpomt;
 	}
 
 
-	public void setPrpomt(char prpomt) {
+	public void setPrpomt(String prpomt) {
 		this.prpomt = prpomt;
 	}
 
-	private int matricule;
-    private String dateN;
-    private char sit;
-    private int type;
-    private char sitm;
-    private String data;
-    private int conc;
-    private int conp;
-    private String pre;
-    private String dateS;
-    
-    
- @Column(name="PRESTA_ID")   
- public Long getId() {
-		return id;
-	}
-
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-
-	@Column(name="ADPOMA")
-	public char getAdpoma() {
+    public String getAdpoma() {
 		return adpoma;
 	}
 
 
-	public void setAdpoma(char adpoma) {
+	public void setAdpoma(String adpoma) {
 		this.adpoma = adpoma;
 	}
 
 
-    @Column(name="PONUM")
-	public int getMatricule() {
-		return matricule;
-	}
-
-
-	public void setMatricule(int matricule) {
-		this.matricule = matricule;
-	}
-
-
-	@Column(name="PRDATN")
 	public String getDateN() {
 		return dateN;
 	}
@@ -88,90 +53,72 @@ public class Partner implements Serializable {
 	}
 
 
-	@Column(name="PRSIT")
-	public char getSit() {
-		return sit;
+	public BigDecimal getPonum() {
+		return ponum;
 	}
 
 
-	public void setSit(char sit) {
-		this.sit = sit;
+	public void setPonum(BigDecimal ponum) {
+		this.ponum = ponum;
 	}
 
 
-	@Column(name="PRTYP")
-	public int getType() {
+	public BigDecimal getType() {
 		return type;
 	}
 
 
-	public void setType(int type) {
+	public void setType(BigDecimal type) {
 		this.type = type;
 	}
 
 
-	@Column(name="PRSITM")
-	public char getSitm() {
+	public String getSitm() {
 		return sitm;
 	}
 
 
-	public void setSitm(char sitm) {
+	public void setSitm(String sitm) {
 		this.sitm = sitm;
 	}
 
 
-	@Column(name="PRDATA")
-	public String getData() {
-		return data;
-	}
-	
-	
-	public void setData(String data) {
-		this.data = data;
-	}
-
-
-	@Column(name="PRCONC")
-	public int getConc() {
-		return conc;
-	}
-
-
-	public void setConc(int conc) {
-		this.conc = conc;
-	}
-
-
-	@Column(name="PRCONP")
-	public int getConp() {
+	public BigDecimal getConp() {
 		return conp;
 	}
 
 
-	public void setConp(int conp) {
+	public void setConp(BigDecimal conp) {
 		this.conp = conp;
 	}
 
 
-	@Column(name="PRPRE")
-	public String getPre() {
-		return pre;
+	public String getPrpre() {
+		return prpre;
 	}
 
 
-	public void setPre(String pre) {
-		this.pre = pre;
+	public void setPrpre(String prpre) {
+		this.prpre = prpre;
 	}
 
 
-	@Column(name="PRDATS")
-	public String getDateS() {
-		return dateS;
+	public String getPrdatem() {
+		return prdatem;
 	}
 
 
-	public void setDateS(String dateS) {
-		this.dateS = dateS;
+	public void setPrdatem(String prdatem) {
+		this.prdatem = prdatem;
 	}
-}
+
+	private String dateN;
+    private BigDecimal ponum;
+    private BigDecimal type;
+    private String sitm;
+    private BigDecimal conp;
+   
+    private String prpre;
+    private String prdatem;
+    
+ }

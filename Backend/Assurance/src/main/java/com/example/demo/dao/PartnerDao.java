@@ -7,7 +7,7 @@ import com.example.demo.entities.Partner;
 
 public interface PartnerDao {
 
-	public List<Partner> getPartnersByMemberId(String matricule);
+	public List<Partner> getPartnersByMember(String matricule, BigDecimal ponum);
 
 	public int setPartnersInfos(List<Partner>children, Partner wife, BigDecimal ponum, String mat);
 }

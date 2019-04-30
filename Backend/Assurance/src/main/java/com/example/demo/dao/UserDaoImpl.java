@@ -65,5 +65,36 @@ public class UserDaoImpl implements UserDao{
 	      
 	     	    	return user;	
    }
+	
+	
+	public int changePassword(String oldPassword, String newPassword, BigDecimal userId ) {
+		logger.info("old "+oldPassword);
+		logger.info("new "+newPassword);
+		logger.info("userId "+userId);
+		 String sql = "select * from appuser where id="+userId;
+	   	 Session session;
+	   	 int result=0;
+		 try{
+	         session = this.sessionFactory.openSession();
+	      	  SQLQuery  query = session.createSQLQuery(sql);
+	         logger.info(query.getQueryString());
+	         Object ligneAsObject = query.getSingleResult();
+
+	             // ligne correspond à une des lignes du résultat
+	            Object[] ligne = (Object[]) ligneAsObject ;
+	            String currentPassword=(String)ligne[2];
+	            if(currentPassword.equals(oldPassword)) {
+	            	String sqlUpdate="update appuser set password='"+newPassword+"' where id="+userId;
+	            			SQLQuery  queryUpdate = session.createSQLQuery(sqlUpdate);
+	            			 result = queryUpdate.executeUpdate();
+	            }
+	        	
+   	 }catch(Exception e){
+   		 logger.error(e.getMessage()); 
+   	 }
+		 return result;
+		 
+	}
+
 
 }

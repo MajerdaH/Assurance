@@ -10,6 +10,9 @@ import com.example.demo.entities.Member;
 	 
 	    
 	    public Member findById(BigDecimal ponum, String mat);
+	    public int changeMemberInfos(BigDecimal ponum,String mat, String address, String phone, String rib);
+
+
 
 	    
 	//    public List<Member> getMembersList();

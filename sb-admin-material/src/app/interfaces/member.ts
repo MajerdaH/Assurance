@@ -15,6 +15,8 @@ export class Member {
     rib:string;
     nchildren:number;
     cp:string;
+    matricule:string;
+    joinDate:string;
 
     constructor(){}
 

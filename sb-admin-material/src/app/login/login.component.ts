@@ -54,6 +54,9 @@ export class LoginComponent implements OnInit {
           console.log(mat +"    >>>    "+ponum)
           this.role=resp['role'];
           localStorage.setItem('isLoggedin', 'true');
+          localStorage.setItem('ponum',ponum);
+          localStorage.setItem('mat',mat);
+
           if(this.role=='member'){
         this.router.navigate(['/dashboard']);}
       }

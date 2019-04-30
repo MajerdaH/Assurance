@@ -1,6 +1,7 @@
 package com.example.demo.dao;
 
 import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,6 +66,24 @@ public class PartnerDaoImpl implements PartnerDao{
 
 		return partners;
 	}
+	
+	public int setPartnersInfos(List<Partner>children, Partner wife, BigDecimal ponum, String mat) {
+		//Update wife infos
+		StringBuilder sqlUpdate = new StringBuilder();
+		sqlUpdate.append("update presta set PRDATN='"+wife.getDateN().toString());
+		//sqlUpdate.append(", ")
+		//+"' where id="+userId;
+		int result=0;
+		 Session session;
+    	 session = this.sessionFactory.getCurrentSession();
+
+SQLQuery  queryUpdate = session.createSQLQuery(sqlUpdate.toString());
+ result = queryUpdate.executeUpdate();
+		 
+		 return result;
+		
+	}
+
 
 	
 	//modifyPartnerInfo(String matricule, )

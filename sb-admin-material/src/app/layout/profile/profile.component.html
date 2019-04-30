@@ -15,7 +15,7 @@
         <div [fxFlex]="50">
                 <mat-card fxFlexFill fxLayoutAlign="center center">
                         <span>Matricule : </span> 
-                        MAT12345696482
+                        {{member.matricule}} 
                        </mat-card>
             </div>
 </div>
@@ -63,7 +63,7 @@
                 </div> 
                 <div [fxFlex]="50">
             <mat-card fxFlexFill fxLayoutAlign="center center">
-                    <span> Date d'entrée à l'assurance:</span>  {{member.birthdate}} 
+                    <span> Date d'entrée à l'assurance:</span>  {{member.joinDate}} 
             </mat-card>
         </div>
         <div [fxFlex]="25">

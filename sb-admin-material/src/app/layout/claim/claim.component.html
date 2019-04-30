@@ -1,5 +1,5 @@
 <div style="width: 20%">
-  <app-stat [bgClass]="'success'"   [label]="'Adhérent Maissa Ferjani'"></app-stat>
+  <app-stat [bgClass]="'success'"   [label]=name></app-stat>
 </div>
 <div>
 <mat-card class="mb-20">
@@ -11,24 +11,24 @@
 </div>
 <div class="mb-10" flexLayout="row" *ngIf="showClaims">
   <div>
-      <table mat-table [dataSource]="dataSource" class="mat-elevation-z5">
-          <ng-container matColumnDef="postDate">
+      <table mat-table [dataSource]="claims" class="mat-elevation-z5">
+          <ng-container matColumnDef="bull">
               <th mat-header-cell *matHeaderCellDef>Post Date </th>
               <td mat-cell *matCellDef="let element"> {{element.postDate}} </td>
           </ng-container>
-          <ng-container matColumnDef="type">
+          <ng-container matColumnDef="careDate">
               <th mat-header-cell *matHeaderCellDef> Type </th>
               <td mat-cell *matCellDef="let element" > {{element.type}} </td>
           </ng-container>
-          <ng-container matColumnDef="title">
+          <ng-container matColumnDef="setDate">
               <th mat-header-cell *matHeaderCellDef> Titre</th>
               <td mat-cell *matCellDef="let element"> {{element.title}} </td>
           </ng-container>
-          <ng-container matColumnDef="description">
+          <ng-container matColumnDef="cPolicy">
               <th mat-header-cell *matHeaderCellDef style="width: 40%"> Description</th>
               <td mat-cell *matCellDef="let element"> {{element.description}} </td>
           </ng-container>
-          <ng-container matColumnDef="status">
+          <ng-container matColumnDef="progress">
               <th mat-header-cell *matHeaderCellDef>Statut </th>
               <td mat-cell *matCellDef="let element"> {{element.status}} </td>
           </ng-container>

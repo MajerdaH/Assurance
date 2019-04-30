@@ -64,5 +64,41 @@ try {
 	      return response;
 	    }
 
+    
+    
+    @CrossOrigin(origins = "http://localhost:4200")
+   	@RequestMapping(value = "/changePassword", method = RequestMethod.POST)
+   	  @ResponseBody
+   	    public String changePassword(@RequestBody JSONObject payload) {
+    	 System.out.println("******************************************"+payload);
+		  JSONParser parser = new JSONParser();
+		  JSONObject json = new JSONObject();;
+		  User user = new User();
+		  String response=null;
+try {
+			//json = (JSONObject) parser.parse(payload);
+		
+		 json=payload;
+		  String newPassword=(String) json.get("newPassword");
+		  System.out.println("***********************newPassword "+newPassword);
+		  String oldPassword=(String) json.get("oldPassword");
+		  System.out.println("***********************oldPassword "+oldPassword);
+		  BigDecimal userId=(BigDecimal) json.get("userId");
+		
+		 int result= userDao.changePassword(oldPassword, newPassword, userId);
+		 if (result ==0){
+			response="OK";
+		 }
+		 else {response="ERROR";}
+	      
+}
+	catch(Exception e) {
+		e.printStackTrace();
+		response="ERROR";		
+}
+	
+	      return response;
+    }
+
 
 }

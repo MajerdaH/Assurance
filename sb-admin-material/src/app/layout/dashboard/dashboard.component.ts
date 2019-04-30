@@ -1,22 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
+import { HttpClient } from '@angular/common/http';
 
-export interface PeriodicElement {
-    name: string;
-    position: string;
-    weight: number;
-    symbol: string;
-}
 
-const ELEMENT_DATA: PeriodicElement[] = [
-    { position: '19/12/2018', name: 'Maissa', weight: 1.0079, symbol: 'H' },
-    { position: '19/12/2018', name: 'Maissa', weight: 4.0026, symbol: 'He' },
-    { position: '19/12/2018', name: 'Maissa', weight: 6.941, symbol: 'Li' },
-    { position: '19/12/2018', name: 'Maissa', weight: 9.0122, symbol: 'Be' },
-    { position: '19/12/2018', name: 'Maissa', weight: 10.811, symbol: 'B' },
-    { position: '19/12/2018', name: 'Maissa', weight: 12.0107, symbol: 'C' },
-    { position: '19/12/2018', name: 'Maissa', weight: 14.0067, symbol: 'N' }
-];
 
 @Component({
     selector: 'app-dashboard',
@@ -24,9 +10,18 @@ const ELEMENT_DATA: PeriodicElement[] = [
     styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-    displayedColumns = ['position', 'name', 'weight', 'symbol','dossier', 'statut','details'];
-    dataSource = new MatTableDataSource(ELEMENT_DATA);
+    private _loginUrl = 'http://localhost:8080/getMemberRefundsBy/'; 
+    private _InfoUrl ='http://localhost:8080/getMemberBy/';
+   // displayedColumns = ['companyPolice'];
+    refunds:any;
+    //dataSource:any;
     places: Array<any> = [];
+    matricule:string;
+    ponum:number;
+    displayedColumns = ['bull','careDate','setDate','cPolicy', 'name', 'progress', 'color'];
+    dataSource: MatTableDataSource<any>;
+    memberInfos:any;
+    name;
 
     applyFilter(filterValue: string) {
         filterValue = filterValue.trim(); // Remove whitespace
@@ -34,37 +29,30 @@ export class DashboardComponent implements OnInit {
         this.dataSource.filter = filterValue;
     }
 
-    constructor() {
-        this.places = [
-            {
-                imgSrc: 'assets/images/card-1.jpg',
-                place: 'Cozy 5 Stars Apartment',
-                description:
-                    // tslint:disable-next-line:max-line-length
-                    'The place is close to Barceloneta Beach and bus stop just 2 min by walk and near to "Naviglio" where you can enjoy the main night life in Barcelona.',
-                charge: '$899/night',
-                location: 'Barcelona, Spain'
-            },
-            {
-                imgSrc: 'assets/images/card-2.jpg',
-                place: 'Office Studio',
-                description:
-                    // tslint:disable-next-line:max-line-length
-                    'The place is close to Metro Station and bus stop just 2 min by walk and near to "Naviglio" where you can enjoy the night life in London, UK.',
-                charge: '$1,119/night',
-                location: 'London, UK'
-            },
-            {
-                imgSrc: 'assets/images/card-3.jpg',
-                place: 'Beautiful Castle',
-                description:
-                    // tslint:disable-next-line:max-line-length
-                    'The place is close to Metro Station and bus stop just 2 min by walk and near to "Naviglio" where you can enjoy the main night life in Milan.',
-                charge: '$459/night',
-                location: 'Milan, Italy'
-            }
-        ];
+    constructor(private _http: HttpClient) {
+      
+        console.log(localStorage.getItem('ponum'));
+        let ponum=localStorage.getItem('ponum');
+        console.log(localStorage.getItem('mat'));
+        let mat=localStorage.getItem('mat');
+
+        this._http.get(this._InfoUrl+mat+'/'+ponum).subscribe(info =>{ this.memberInfos=info;
+            this.name=this.memberInfos.nom+ " "+this.memberInfos.prenom;
+            localStorage.setItem('memberName', this.name);
+        }); 
+
+        this._http.get(this._loginUrl+mat+'/'+ponum).subscribe(resp => this.refunds=resp); 
+            this.getAllRefunds();
+
+//console.log(this.refunds)
     }
 
     ngOnInit() {}
+
+
+    getAllRefunds(){
+this.dataSource=this.refunds;
+    //console.log(this.refunds)
 }
+    }
+

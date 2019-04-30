@@ -61,6 +61,34 @@ import com.example.demo.entities.Member;
 		      return member;
 		        		
 	    }
+	    
+ public int changeMemberInfos(BigDecimal ponum, String mat, String address, String phone, String rib) {
+	    	
+	    	logger.info("address "+address);
+			logger.info("phone "+phone);
+			logger.info("rib "+rib);
+			logger.info("ponum "+ponum);
+			StringBuilder builder = new StringBuilder() ;
+			builder.append("update member set ");
+			
+				builder.append("TEL='"+phone+"' ,ADR='"+address+"' , RIB='"+rib+"' where ");
+				builder.append("MAT='"+mat+"' and NUMP="+ponum);
+		
+		   	 Session session;
+		   	 int result=0;
+			 try{
+		         session = this.sessionFactory.openSession();
+		      	  SQLQuery  query = session.createSQLQuery(builder.toString());
+		         logger.info(query.getQueryString());
+		    	 result = query.executeUpdate();
+        	
+	   	 }catch(Exception e){
+	   		 logger.error(e.getMessage()); 
+	   	 }
+			 return result;
+	}
+	    
+
 /*
 	    @Autowired
 	    public List<Member> getMembersList() {

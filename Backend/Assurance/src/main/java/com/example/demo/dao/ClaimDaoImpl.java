@@ -34,10 +34,10 @@ import com.example.demo.entities.Member;
 
 	 Logger logger = LoggerFactory.getLogger(MemberDaoImpl.class);
 	
-	public List<Claim> getClaimsByClientMat(String matricule){
+	public List<Claim> getClaimsByClientMat(String matricule, BigDecimal ponum){
 		List<Claim> clientClaims = new ArrayList<Claim>();
 		
-		 String sql = "select * from reclamation where mat='"+matricule+"'";
+		 String sql = "select * from reclamation where mat='"+matricule+"' and ponum="+ponum;
     	 Session session;
     	 try{
 	         session = this.sessionFactory.getCurrentSession();
@@ -57,14 +57,15 @@ import com.example.demo.entities.Member;
 	           claim.setType((String)ligne[1]);
 	           claim.setDescription((String)ligne[2]);
 	           claim.setDateClaim((Date)ligne[3]);
-	           int i = (int)ligne[4];
-	           if (i==0){
+	           BigDecimal i = (BigDecimal)ligne[4];
+	           if (i.equals(0)){
 	        	   claim.setStatus(false);
-	           }else if(i==1){
+	           }else if(i.equals(1)){
 	        	   claim.setStatus(true);
 	           }
 	           claim.setJoinedFile((String)ligne[5]) ;
 	           claim.setMatricule((String)ligne[6]);
+	           claim.setPonum((BigDecimal)ligne[7]);
 	           clientClaims.add(claim);
 	        }
 	        }

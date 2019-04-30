@@ -27,6 +27,7 @@ public class Claim implements Serializable{
 	private boolean status;
 	private String joinedFile;
 	private String matricule;
+	private BigDecimal ponum;
 	
 	@Column(name="ID")
 	public BigDecimal getId() {
@@ -80,6 +81,12 @@ public class Claim implements Serializable{
 	}
 	public void setMatricule(String matricule) {
 		this.matricule = matricule;
+	}
+	public BigDecimal getPonum() {
+		return ponum;
+	}
+	public void setPonum(BigDecimal ponum) {
+		this.ponum = ponum;
 	}
 
 

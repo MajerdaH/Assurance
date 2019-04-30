@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
 import {  FileUploader, FileSelectDirective } from 'ng2-file-upload/ng2-file-upload';
+import { HttpClient } from '@angular/common/http';
 export interface ClaimElement {
   postDate: string;
   type: string;
@@ -21,16 +22,26 @@ const URL = 'http://localhost:3000/api/upload';
   styleUrls: ['./claim.component.scss']
 })
 export class ClaimComponent implements OnInit {
-  
-displayedColumns = ['postDate', 'type', 'title', 'description', 'status'];
-dataSource = new MatTableDataSource(ELEMENT_DATA);
-
+  name:string;
+claims:any;
 showAddSuggestion:boolean;
 showClaims:boolean;
+displayedColumns = ['bull','careDate','setDate','cPolicy', 'progress'];
+dataSource: MatTableDataSource<any>;
+private _InfoUrl ='http://localhost:8080/getMemberClaimsBy/';
 public uploader: FileUploader = new FileUploader({url: URL, itemAlias: 'photo'});
 
-  constructor() {
-    }
+constructor(private _http: HttpClient) {
+      this.name=localStorage.getItem('memberName');
+  console.log(localStorage.getItem('ponum'));
+  let ponum=localStorage.getItem('ponum');
+  console.log(localStorage.getItem('mat'));
+  let mat=localStorage.getItem('mat');
+
+  this._http.get(this._InfoUrl+mat+'/'+ponum).subscribe(info =>{ this.claims=info;
+      console.log(this.claims)
+  });
+  this.getAllClaims(); }
 
   ngOnInit() {
       this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
@@ -48,4 +59,12 @@ this.showAddSuggestion=!this.showAddSuggestion;
 this.showClaims=!this.showClaims;
 
 }
+
+  getAllClaims(){
+    this.dataSource=this.claims;
+        //console.log(this.refunds)
+    }
+        //  this._http.get(this._loginUrl+mat+'/'+ponum).subscribe(resp => {console.log(resp)});
+
+
 }

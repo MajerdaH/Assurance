@@ -63,7 +63,6 @@ export class LoginComponent implements OnInit {
       else {
         localStorage.setItem('isLoggedin', 'false');
         this.router.navigate(['/login']);
-        alert("Login ou mot de passe invalide");
       }
     });
           

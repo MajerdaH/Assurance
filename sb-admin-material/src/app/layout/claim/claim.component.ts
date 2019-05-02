@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
 import {  FileUploader, FileSelectDirective } from 'ng2-file-upload/ng2-file-upload';
 import { HttpClient } from '@angular/common/http';
+import { FormGroup, FormControl } from '@angular/forms';
 export interface ClaimElement {
   postDate: string;
   type: string;
@@ -23,6 +24,7 @@ const URL = 'http://localhost:3000/api/upload';
 })
 export class ClaimComponent implements OnInit {
   name:string;
+  claimForm:any;
 claims:any;
 showAddSuggestion:boolean;
 showClaims:boolean;
@@ -37,6 +39,10 @@ constructor(private _http: HttpClient) {
   let ponum=localStorage.getItem('ponum');
   console.log(localStorage.getItem('mat'));
   let mat=localStorage.getItem('mat');
+  this.claimForm =new FormGroup({
+    email: new FormControl(),
+    password: new FormControl()
+    });
 
   this._http.get(this._InfoUrl+mat+'/'+ponum).subscribe(info =>{ this.claims=info;
       console.log(this.claims)
@@ -57,6 +63,7 @@ constructor(private _http: HttpClient) {
 addClaim(){
 this.showAddSuggestion=!this.showAddSuggestion;
 this.showClaims=!this.showClaims;
+
 
 }
 

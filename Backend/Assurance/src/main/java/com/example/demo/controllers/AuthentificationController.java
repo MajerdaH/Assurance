@@ -35,7 +35,7 @@ public class AuthentificationController {
 		  System.out.println("******************************************"+payload);
 		  JSONParser parser = new JSONParser();
 		  JSONObject json = new JSONObject();;
-		  User user = new User();
+		  User user;
 		  String response=null;
 try {
 			//json = (JSONObject) parser.parse(payload);
@@ -45,14 +45,17 @@ try {
 		  System.out.println("***********************login "+login);
 		  String password=(String) json.get("password");
 		  System.out.println("***********************password "+password);
+		  ObjectMapper objMapper = new ObjectMapper();
 		
 		 user= userDao.signIn(login, password);
 		 if (user !=null){
-			ObjectMapper objMapper = new ObjectMapper();
+			
 			response=objMapper.writeValueAsString(user);
 			
 		 }
-		 else {user.setPonum(BigDecimal.ZERO);}
+		 else {user= new User();
+			 user.setPonum(BigDecimal.ZERO);
+			 response=objMapper.writeValueAsString(user);}
 	      
 }
 	catch(Exception e) {

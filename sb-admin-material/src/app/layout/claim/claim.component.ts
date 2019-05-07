@@ -3,6 +3,7 @@ import { MatTableDataSource } from '@angular/material';
 import {  FileUploader, FileSelectDirective } from 'ng2-file-upload/ng2-file-upload';
 import { HttpClient } from '@angular/common/http';
 import { FormGroup, FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 export interface ClaimElement {
   postDate: string;
   type: string;
@@ -33,7 +34,10 @@ dataSource: MatTableDataSource<any>;
 private _InfoUrl ='http://localhost:8080/getMemberClaimsBy/';
 public uploader: FileUploader = new FileUploader({url: URL, itemAlias: 'photo'});
 
-constructor(private _http: HttpClient) {
+constructor(private _http: HttpClient, private router: Router) {
+  if (!localStorage.getItem('isLoggedin') || localStorage.getItem('isLoggedin')=='false') {
+    this.router.navigate(['/login']);
+}
       this.name=localStorage.getItem('memberName');
   console.log(localStorage.getItem('ponum'));
   let ponum=localStorage.getItem('ponum');

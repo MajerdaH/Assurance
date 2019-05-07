@@ -58,7 +58,7 @@
     <div class="mb-20" fxFlex fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px">
             <div [fxFlex]="25">
                     <mat-card fxFlexFill fxLayoutAlign="center center">
-                            <span> Profession:</span> -------- 
+                            <span> Adresse:</span> {{member.address}} 
                     </mat-card>
                 </div> 
                 <div [fxFlex]="50">
@@ -71,43 +71,152 @@
               <span> RIB:</span>  {{member.rib}}
             </mat-card></div>
         </div>
+        <button color="primary" style="margin-bottom: 1%" (click)="modifyInfos()">Modifier</button>
 
+<div  *ngIf="showModifyInfos">
+        <form class="login-form" fxFlex (ngSubmit)="validateModifyInfos()" [formGroup]="modifyForm">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Modifier vos informations:</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                    <section class="example-section">
+                    <mat-form-field class="example-margin">
+                        <input matInput type="text" placeholder="Téléphone"  formControlName="phone">
+                    </mat-form-field>
+                    <mat-form-field class="example-margin">
+                        <input matInput type="text" placeholder="RIB" formControlName="rib">
+                    </mat-form-field>
+                    <mat-form-field class="example-margin">
+                        <input matInput type="text" placeholder="Adresse" formControlName="address">
+                    </mat-form-field>
+                     
+        <button mat-raised-button color="primary" style="margin-bottom: 1%" (click)="validateModifyInfos()">Valider</button>    
+                </section>
+            </mat-card-content>
+        </mat-card></form></div>
+        
+
+
+        <div *ngIf="showPartners">  
+         <div *ngIf="wife">  
         <div class="mb-20" fxFlex fxLayout="row" fxLayout.lt-md="column">
-                <div fxFlex="48">
-                    <mat-card style="background-color:#e8c847;color: black" fxFlexFill fxLayoutAlign="center center">
-                        Données Conjoint
-                    </mat-card>
-                </div>
-                <div fxFlex="4"></div>
-                <div fxFlex="48">
-                        <mat-card style="background-color:#e8c847;color: black" fxFlexFill fxLayoutAlign="center center">
-                            Données Enfant
-                        </mat-card>
-                    </div>
+            <div fxFlex>
+                <mat-card style="background-color:#466341;color: cornsilk" fxFlexFill fxLayoutAlign="center center">
+                    Données Conjoint(e)
+                </mat-card>
             </div>
-            <div class="mb-20" fxFlex fxLayout="row" fxLayout.lt-md="column">
-                    <div fxFlex="48">
-                        <mat-card  fxFlexFill fxLayoutAlign="center center">
-                          <span>  Nom et Prénom: </span> Mohamed Mohamed 
-                        </mat-card>
-                    </div>
-                    <div fxFlex="4"></div>
-                    <div fxFlex="48">
-                            <mat-card  fxFlexFill fxLayoutAlign="center center">
-                                    <span>  Nom et Prénom: </span> Mohamed Mohamed 
-                            </mat-card>
-                        </div>
+        </div>
+        <div class="mb-20" fxFlex fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px">
+            <div [fxFlex]="30">
+                    <mat-card fxFlexFill fxLayoutAlign="center center">
+                            <span>Nom : </span> 
+                            {{wifeInfos.lastname}} 
+                           </mat-card>
                 </div>
-                <div class="mb-20" fxFlex fxLayout="row" fxLayout.lt-md="column">
-                        <div fxFlex="48">
-                            <mat-card  fxFlexFill fxLayoutAlign="center center">
-                              <span>  Date de naissance: </span> Mohamed 11/11/2011 
-                            </mat-card>
-                        </div>
-                        <div fxFlex="4"></div>
-                        <div fxFlex="48">
-                                <mat-card fxFlexFill fxLayoutAlign="center center">
-                                        <span>  Date de naissance: </span>11/11/2011 
-                                </mat-card>
-                            </div>
+                <div [fxFlex]="30">
+                        <mat-card fxFlexFill fxLayoutAlign="center center">
+                                <span>Date de naissance : </span> 
+                                {{wifeInfos.birthdate}} 
+                               </mat-card>
                     </div>
+                    <div [fxFlex]="30">
+                        <mat-card fxFlexFill fxLayoutAlign="center center">
+                                <span>Matricule : </span> 
+                                {{wifeInfos.matricule}} 
+                               </mat-card>
+                    </div>
+        </div>
+    </div>
+
+    <div *ngIf="child1">  
+        <div class="mb-20" fxFlex fxLayout="row" fxLayout.lt-md="column">
+            <div fxFlex>
+                <mat-card style="background-color:#466341;color: cornsilk" fxFlexFill fxLayoutAlign="center center">
+                    Données Enfant 01
+                </mat-card>
+            </div>
+        </div>
+        <div class="mb-20" fxFlex fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px">
+            <div [fxFlex]="30">
+                    <mat-card fxFlexFill fxLayoutAlign="center center">
+                            <span>Nom : </span> 
+                            {{child1Infos.lastname}} 
+                           </mat-card>
+                </div>
+                <div [fxFlex]="30">
+                        <mat-card fxFlexFill fxLayoutAlign="center center">
+                                <span>Date de naissance : </span> 
+                                {{child1Infos.birthdate}} 
+                               </mat-card>
+                    </div>
+                    <div [fxFlex]="30">
+                        <mat-card fxFlexFill fxLayoutAlign="center center">
+                                <span>Matricule : </span> 
+                                {{child1Infos.matricule}} 
+                               </mat-card>
+                    </div>
+                 </div>
+    </div>
+
+    <div *ngIf="child2">  
+        <div class="mb-20" fxFlex fxLayout="row" fxLayout.lt-md="column">
+            <div fxFlex>
+                <mat-card style="background-color:#466341;color: cornsilk" fxFlexFill fxLayoutAlign="center center">
+                    Données Enfant 02
+                </mat-card>
+            </div>
+        </div>
+            <div class="mb-20" fxFlex fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px">
+                <div [fxFlex]="30">
+                        <mat-card fxFlexFill fxLayoutAlign="center center">
+                                <span>Nom : </span> 
+                                {{child2Infos.lastname}} 
+                               </mat-card>
+                    </div>
+                    <div [fxFlex]="30">
+                            <mat-card fxFlexFill fxLayoutAlign="center center">
+                                    <span>Date de naissance : </span> 
+                                    {{child2Infos.birthdate}} 
+                                   </mat-card>
+                        </div>
+                        <div [fxFlex]="30">
+                            <mat-card fxFlexFill fxLayoutAlign="center center">
+                                    <span>Matricule : </span> 
+                                    {{child2Infos.matricule}} 
+                                   </mat-card>
+                        </div>
+                       </div>
+    </div>
+
+
+    <div *ngIf="child3">  
+        <div class="mb-20" fxFlex fxLayout="row" fxLayout.lt-md="column">
+            <div fxFlex>
+                <mat-card style="background-color:#466341;color: cornsilk" fxFlexFill fxLayoutAlign="center center">
+                    Données Enfant 03
+                </mat-card>
+            </div>
+        </div>
+        <div class="mb-20" fxFlex fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px">
+            <div [fxFlex]="30">
+                    <mat-card fxFlexFill fxLayoutAlign="center center">
+                            <span>Nom : </span> 
+                            {{child3Infos.lastname}} 
+                           </mat-card>
+                </div>
+                <div [fxFlex]="30">
+                        <mat-card fxFlexFill fxLayoutAlign="center center">
+                                <span>Date de naissance : </span> 
+                                {{child3Infos.birthdate}} 
+                               </mat-card>
+                    </div>
+                    <div [fxFlex]="30">
+                        <mat-card fxFlexFill fxLayoutAlign="center center">
+                                <span>Matricule : </span> 
+                                {{child3Infos.matricule}} 
+                               </mat-card>
+                    </div>
+                  </div>
+    </div></div>
+

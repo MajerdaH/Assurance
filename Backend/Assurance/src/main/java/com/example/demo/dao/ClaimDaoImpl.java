@@ -8,6 +8,7 @@ import java.util.List;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,30 +74,26 @@ import com.example.demo.entities.Member;
 	}
 	
 	
-	public int addClaim(Claim claim) {
-		
-		/*int i=0;
-		if (claim.isStatus()) i=1; else i=0;
-		 String sql = "insert into reclamation (type, description,daterec, status,piecejointe, mat) "+
-	"values ('"+claim.getDescription()+"',"+claim.getDateClaim()+","+i+",'"+claim.getJoinedFile()+"','"+claim.getMatricule()+"')";
-	*/int i=0;
-    	 Session session;
-    	 try{
-	         session = this.sessionFactory.getCurrentSession();
-	         session.save(claim);
-	          i=1;
-
-    	 }catch(Exception e){
-    		// session = this.sessionFactory.openSession();
-    		 logger.error(e.getMessage());
-    	 }
-	     return i;  
+	public int addClaim(String type, String description, String mat, BigDecimal ponum, String joinedFile) {
+	Date d = new Date();
+		StringBuilder builder= new StringBuilder();
+		 builder.append("insert into reclamation (seq_reclamation.nextval(),'"+type+"', '"+description+"','"+d.toString()+"',0,'"+joinedFile+"', '"+mat+"',"+ponum) ;
+    	 
+    	 Session  session = this.sessionFactory.openSession();
+		   	
+	   	 
+ 		
+	   	 Transaction tx = null;
+	   	 tx=session.beginTransaction();
+	   	SQLQuery query = session
+                .createSQLQuery(builder.toString());
+	   	 
+    int resp=	query.executeUpdate();
+    	logger.info("after insert");
+        tx.commit(); // this is important
+	
+	return resp;
 	}
 	
-	public int modifyClaim(String response, String status) {
-		
-		int i=1;
-		return i;
-	}
 
 }

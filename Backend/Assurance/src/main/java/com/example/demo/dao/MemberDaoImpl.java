@@ -1,22 +1,25 @@
 package com.example.demo.dao;
 
 import java.math.BigDecimal;
-import java.util.List;
+
+import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
+import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.UnexpectedRollbackException;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.entities.Member;
 @Service
-@Transactional 
 @Repository("memberDao")
 	public class MemberDaoImpl  implements MemberDao {
 	 
@@ -54,7 +57,11 @@ import com.example.demo.entities.Member;
 		           member.setMat((String)ligne[1]) ;
 		           member.setNom((String)ligne[2]);
 		           member.setPrenom((String)ligne[3]);
-		           member.setDateN((String)ligne[4]);}
+		           member.setDateN((String)ligne[4]);
+		        member.setRib((String)ligne[15]);   
+		        member.setAddress((String)ligne[7]);   
+		        member.setTel((String)ligne[13]);
+		        }
 		        }
 		        else {member.setNumP(BigDecimal.ZERO);}
 		       
@@ -62,30 +69,40 @@ import com.example.demo.entities.Member;
 		        		
 	    }
 	    
- public int changeMemberInfos(BigDecimal ponum, String mat, String address, String phone, String rib) {
+	    public int changeMemberInfos(BigDecimal ponum, String mat, String address, String phone, String rib)  {
 	    	
 	    	logger.info("address "+address);
 			logger.info("phone "+phone);
 			logger.info("rib "+rib);
 			logger.info("ponum "+ponum);
 			StringBuilder builder = new StringBuilder() ;
-			builder.append("update member set ");
-			
-				builder.append("TEL='"+phone+"' ,ADR='"+address+"' , RIB='"+rib+"' where ");
-				builder.append("MAT='"+mat+"' and NUMP="+ponum);
+			builder.append("update ADHERENT set TEL=:phone");
 		
-		   	 Session session;
-		   	 int result=0;
-			 try{
-		         session = this.sessionFactory.openSession();
-		      	  SQLQuery  query = session.createSQLQuery(builder.toString());
-		         logger.info(query.getQueryString());
-		    	 result = query.executeUpdate();
-        	
-	   	 }catch(Exception e){
-	   		 logger.error(e.getMessage()); 
-	   	 }
-			 return result;
+			builder.append("  , RIB=:rib where ");
+				builder.append("MAT=:mat and NUMP=:nump");
+//		
+		   	 Session  session = this.sessionFactory.openSession();
+		   	
+		   	 
+		
+		   	 Transaction tx = null;
+		   	 tx=session.beginTransaction();
+		   	SQLQuery query = session
+	                .createSQLQuery(builder.toString());
+		   	query.setParameter("rib", rib);
+		   	query.setParameter("mat", mat);
+		   	query.setParameter("phone", phone);
+		   	query.setParameter("nump", ponum);
+		   	 
+	    int resp=	query.executeUpdate();
+	    	logger.info("after update");
+	        tx.commit(); // this is important
+		        
+		      	 
+		    	
+   		 logger.info("resp"+resp); 
+//	   	 }
+			 return resp;
 	}
 	    
 

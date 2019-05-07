@@ -12,12 +12,18 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Adherent")
+@Table(name="ADHERENT")
 public class Member implements Serializable{
 		   
 	 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	// @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "adherent_seq")
-	 @Id
+	
+	
 	 private BigDecimal numP;//ponum
 	 
 	 private String mat;
@@ -34,10 +40,16 @@ public class Member implements Serializable{
 	 private String redac;
 	 private String tel;
 	 private char sit;
+	 
+	 @Id
 	 private String rib;
+	 
+	 
+	 @Column(name="NUMP")
 	public BigDecimal getNumP() {
 		return numP;
 	}
+	
 	public void setNumP(BigDecimal numP) {
 		this.numP = numP;
 	}

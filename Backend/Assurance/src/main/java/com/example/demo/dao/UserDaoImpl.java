@@ -42,7 +42,6 @@ public class UserDaoImpl implements UserDao{
      User user =new User();
    	 try{
 	         session = this.sessionFactory.openSession();
-	         session = this.sessionFactory.openSession();
 	      	  SQLQuery  query = session.createSQLQuery(sql);
 	         logger.info(query.getQueryString());
 	        

@@ -10,7 +10,6 @@ public interface ClaimDao {
 	
 	public List<Claim> getClaimsByClientMat(String matricule, BigDecimal ponum);
 		
-	public int addClaim(Claim claim);
+	public int addClaim(String type, String description, String mat, BigDecimal ponum, String joinedFile);
 	
-	public int modifyClaim(String response, String status);
 }

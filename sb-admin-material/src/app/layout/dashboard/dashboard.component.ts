@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 
 
@@ -29,8 +30,12 @@ export class DashboardComponent implements OnInit {
         this.dataSource.filter = filterValue;
     }
 
-    constructor(private _http: HttpClient) {
-      
+    constructor(private _http: HttpClient, private router: Router) {
+
+        console.log(localStorage.getItem('isLoggedin'));
+        if (!localStorage.getItem('isLoggedin') || localStorage.getItem('isLoggedin')=='false') {
+            this.router.navigate(['/login']);
+        }else {
         console.log(localStorage.getItem('ponum'));
         let ponum=localStorage.getItem('ponum');
         console.log(localStorage.getItem('mat'));
@@ -46,6 +51,7 @@ export class DashboardComponent implements OnInit {
 
 //console.log(this.refunds)
     }
+}
 
     ngOnInit() {}
 

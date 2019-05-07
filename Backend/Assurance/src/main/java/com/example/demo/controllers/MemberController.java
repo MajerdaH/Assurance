@@ -1,13 +1,11 @@
 package com.example.demo.controllers;
 
-import java.math.BigDecimal;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,12 +53,13 @@ public class MemberController {
 	   @CrossOrigin(origins = "http://localhost:4200")
 	   	@RequestMapping(value = "/changeMemberInfos", method = RequestMethod.POST)
 	   	  @ResponseBody
-	   	    public String changeMemberInfos(@RequestBody JSONObject payload) {
+	   	    public String changeMemberInfos(@RequestBody JSONObject payload) throws JsonProcessingException {
 	    //	 System.out.println("******************************************"+payload);
 			  JSONParser parser = new JSONParser();
 			  JSONObject json = new JSONObject();;
 			  User user = new User();
 			  String response=null;
+			  ObjectMapper objMapper = new ObjectMapper();
 	try {
 				//json = (JSONObject) parser.parse(payload);
 			
@@ -69,26 +68,26 @@ public class MemberController {
 			  System.out.println("address "+address);
 			  String phone=(String) json.get("phone");
 			  System.out.println("phone "+phone);
-			  String rib=(String) json.get("phone");
+			  String rib=(String) json.get("rib");
 			  String mat=(String) json.get("mat")
 					  ;
 			  System.out.println("rib "+rib);
-			  BigDecimal ponum=(BigDecimal) json.get("ponum");
+			  String sponum=(String) json.get("ponum");
+			  BigDecimal ponum=new BigDecimal(sponum);
 			  
 			
 			 int result= memberDao.changeMemberInfos(ponum, mat, address, phone, rib);
-			 if (result ==0){
+			 if (result ==1){
 				response="OK";
 			 }
 			 else {response="ERROR";}
-		      
 	}
 		catch(Exception e) {
 			e.printStackTrace();
 			response="ERROR";		
 	}
-		
-		      return response;
+		System.out.println(response);
+		      return objMapper.writeValueAsString(response).toString();
 	    }
 
 

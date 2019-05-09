@@ -98,8 +98,6 @@ this.initMember();
        this.child3Infos.matricule=info[i].prpomt;
      }
      
-      console.log();
-    
     });
 
 

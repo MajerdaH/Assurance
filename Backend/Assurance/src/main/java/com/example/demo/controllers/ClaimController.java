@@ -2,6 +2,7 @@
 	package com.example.demo.controllers;
 
 	import java.math.BigDecimal;
+import java.text.ParseException;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -32,7 +33,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 		   @CrossOrigin(origins = "http://localhost:4200")
 		  @RequestMapping(value = "/getMemberClaimsBy/{mat}/{ponum}", method = RequestMethod.GET)
 		  @ResponseBody
-		  public String getClaimsByMember(@PathVariable String mat,@PathVariable BigDecimal ponum) {
+		  public String getClaimsByMember(@PathVariable String mat,@PathVariable BigDecimal ponum) throws ParseException {
 			 ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
 			 String json =null;
 			 System.out.println("ponum==="+ponum);
@@ -50,7 +51,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 		   @CrossOrigin(origins = "http://localhost:4200")
 			@RequestMapping(value = "/addClaim", method = RequestMethod.POST)
 			  @ResponseBody
-			    public String login(@RequestBody JSONObject payload) {
+			    public String addClaim(@RequestBody JSONObject payload) {
 				  System.out.println("******************************************"+payload);
 				  JSONParser parser = new JSONParser();
 				  JSONObject json = new JSONObject();;
@@ -60,8 +61,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 					//json = (JSONObject) parser.parse(payload);
 				
 				 json=payload;
-				 String sponum=(String) json.get("ponum");
-				  BigDecimal ponum=new BigDecimal(sponum);
+				  BigDecimal ponum=new BigDecimal((String)json.get("ponum"));
 				  
 				  String mat=(String) json.get("mat");
 				  String type=(String) json.get("type");

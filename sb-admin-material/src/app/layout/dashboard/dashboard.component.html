@@ -12,7 +12,13 @@
         <app-stat [bgClass]="'success'"   [label]=name></app-stat>
     </div>
 
-
+    <div class="right">
+    <div id="search">
+      <input #search type="search" [placeholder]="filled?'Search':''" [ngClass]="{'filled':filled}"  [(ngModel)]="bulln"
+           (click)="filled=!filled"> <button *ngIf="!filled" (click)="searchBull(bulln)">Rechercher</button>
+           <button class="close" *ngIf="filled" (click)="search.value='';filled=false">X</button>
+    </div>
+  </div>
 <div class="mb-10" flexLayout="row" >
     <div>
        <table mat-table [dataSource]="refunds" class="mat-elevation-z5">

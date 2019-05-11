@@ -6,6 +6,8 @@ import com.example.demo.entities.Refund;
 
 public interface RefundDao {
 	
-	public List<Refund> getRefundsByMatAndPonum(BigDecimal ponum,String matricule);
+	public List<Refund> getRefundsByMatAndPonum(BigDecimal ponum,String matricule, BigDecimal nBull);
+	
+	List<Refund> getBullByMatAndPonum(BigDecimal ponum,String matricule);
 
 }

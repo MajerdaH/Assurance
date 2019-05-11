@@ -38,7 +38,7 @@ const routes: Routes = [
                 loadChildren: './forms/forms.module#FormsModule'
             },
             {
-                path: 'enrollment',
+                path: 'addInfos',
                 loadChildren: './grid/grid.module#GridModule'
             },
             {
@@ -46,7 +46,7 @@ const routes: Routes = [
                 loadChildren: './tables/tables.module#TablesModule'
             },
             {
-                path: 'blank-page',
+                path: 'register',
                 loadChildren: './blank-page/blank-page.module#BlankPageModule'
             }
         ]

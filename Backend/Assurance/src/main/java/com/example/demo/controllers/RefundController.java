@@ -26,20 +26,36 @@ public class RefundController {
 
 
 	   @CrossOrigin(origins = "http://localhost:4200")
-	  @RequestMapping(value = "/getMemberRefundsBy/{mat}/{ponum}", method = RequestMethod.GET)
+	  @RequestMapping(value = "/getMemberRefundsBy/{mat}/{ponum}/{wbull}", method = RequestMethod.GET)
 	  @ResponseBody
-	  public String index(@PathVariable String mat,@PathVariable BigDecimal ponum) {
+	  public String index(@PathVariable String mat,@PathVariable BigDecimal ponum, @PathVariable BigDecimal wbull) {
 		 ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
 		 String json =null;
 		 System.out.println("ponum==="+ponum);
 		 try {
-			 json=	ow.writeValueAsString(refundDao.getRefundsByMatAndPonum(ponum, mat));
+			 json=	ow.writeValueAsString(refundDao.getRefundsByMatAndPonum(ponum, mat, wbull));
 		} catch (JsonProcessingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	    return json;
 	  }
+	   
+	   
+	   @CrossOrigin(origins = "http://localhost:4200")
+		  @RequestMapping(value = "/getMemberBullsBy/{mat}/{ponum}", method = RequestMethod.GET)
+		  @ResponseBody
+		  public String getMemberBullsBy(@PathVariable String mat,@PathVariable BigDecimal ponum) {
+			 ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+			 String json =null;
+			 try {
+				 json=	ow.writeValueAsString(refundDao.getBullByMatAndPonum(ponum, mat));
+			} catch (JsonProcessingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		    return json;
+		  }
 	 
 
 }

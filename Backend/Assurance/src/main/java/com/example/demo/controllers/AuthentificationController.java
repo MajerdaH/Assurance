@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.example.demo.dao.MemberDao;
 import com.example.demo.dao.UserDao;
 import com.example.demo.entities.User;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.math.BigDecimal;
@@ -102,6 +103,40 @@ try {
 	
 	      return response;
     }
+   
+    @CrossOrigin(origins = "http://localhost:4200")
+  	@RequestMapping(value = "/addUser", method = RequestMethod.POST)
+  	  @ResponseBody
+  	    public String adduser(@RequestBody JSONObject payload) throws JsonProcessingException {
+  		  System.out.println("******************************************"+payload);
+  		  JSONParser parser = new JSONParser();
+  		  JSONObject json = new JSONObject();
+  		  User user= new User();
+  		 String response=null;
+  		ObjectMapper objMapper = new ObjectMapper();
+  try {
+  			//json = (JSONObject) parser.parse(payload);
+  		
+  		 json=payload;
+  		  String login=(String) json.get("login");
+  		  String password=(String) json.get("password");
+  		  String mat=(String) json.get("mat");
+		  BigDecimal ponum=new BigDecimal( (Integer) json.get("ponum"));
+  		  
+  		
+  		 int resp= userDao.addUser(password, login, ponum, mat);
+  		 if (resp ==0){user.setPonum(BigDecimal.ZERO);}
+
+  		 else {user.setPonum(BigDecimal.ONE);}	
+  }
+ 
+  	catch(Exception e) {
+  		e.printStackTrace();
+  }
+  
+  response=objMapper.writeValueAsString(user);
+  	      return response;
+  	    }
 
 
 }

@@ -1,5 +1,5 @@
 <div class="login-page">
-    <div class="content">
+    <div class="content" *ngIf="showLogin">
         <!-- <h1 class="app-name">Assurance Star</h1> -->
         <form class="login-form" fxFlex (ngSubmit)="onLogin()" [formGroup]="signupfrm">
             <div class="text-center">
@@ -33,7 +33,77 @@
                     <button type="button"  color="primary" class="w-100" (click)="onLogin()">Connecter</button>
                 </div>
             </div>
-
+            <br>
+            <div fxFlex  fxLayout="row" >
+                <div fxFlexFill>
+                    <button type="button"  color="primary" class="w-100" (click)="OnRegister()">Nouveau membre ? S'enregistrer</button>
+                </div>
+        </div>
         </form>
+       
     </div>
-</div>
+
+
+
+    <div class="content" *ngIf=showRegister>
+        
+        <form class="login-form" fxFlex (ngSubmit)="onEnrollment()" [formGroup]="registerfrm">
+            <div class="text-center">
+               <!-- <h2 class="app-name">Assurance Star</h2>-->
+               <img src="assets/images/StarLogo.jpg" class="logo">
+            </div>
+            <h1>Devenir membre</h1> 
+            <div fxFlex  fxlayout="row" fxlayout.lt-md="column">
+                <div fxFlexFill>
+                    <mat-form-field class="w-100">
+                        <input matInput type="number" placeholder="Police de la société" name="ponum" formControlName="ponum" required >
+                    </mat-form-field>
+                </div>
+            </div>
+            <div fxFlex  fxLayout="row" fxLayout.lt-md="column">
+                <div fxFlexFill>
+                    <mat-form-field class="w-100">
+                        <input matInput placeholder="Votre matricule" name="mat" formControlName="mat" required >
+                    </mat-form-field>
+                </div>
+            </div>
+            <div fxFlex  fxLayout="row" fxLayout.lt-md="column"  *ngIf="showFirstValidate">
+                <div fxFlexFill>
+                    <button type="button"  color="primary" class="w-100" (click)="OnCheckMember()">Valider</button>
+                </div>
+            </div>
+
+            <div fxFlex  fxLayout="row" fxLayout.lt-md="column" *ngIf="showPassword">
+                <div fxFlexFill>
+                    <mat-form-field class="w-100">
+                        <input matInput placeholder="Login" name="login" formControlName="login" required >
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div fxFlex  fxLayout="row" fxLayout.lt-md="column" *ngIf="showPassword">
+                <div fxFlexFill>
+                    <mat-form-field class="w-100">
+                        <input matInput type="password" placeholder="Mot de passe" name="password" formControlName="password" required >
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div fxFlex  fxLayout="row" fxLayout.lt-md="column" *ngIf="showPassword">
+                <div fxFlexFill>
+                    <mat-form-field class="w-100">
+                        <input matInput type="password" placeholder="Confirmer votre mot de passe" name="confirmpassword" formControlName="confirmpassword" required >
+                    </mat-form-field>
+                </div>
+            </div>
+            <div fxFlex  fxLayout="row" fxLayout.lt-md="column" *ngIf="showPassword">
+                <div fxFlexFill>
+                    <button type="button"  color="primary" class="w-100" (click)="OnSaveInfos()">Valider</button>
+                </div>
+            </div>
+            <br>
+        </form>
+       
+    </div>
+        </div>
+   

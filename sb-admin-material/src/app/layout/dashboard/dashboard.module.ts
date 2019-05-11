@@ -7,9 +7,10 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { StatModule } from '../../shared/modules/stat/stat.module';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
-    imports: [
+    imports: [FormsModule,
         CommonModule,
         DashboardRoutingModule,
         MatGridListModule,

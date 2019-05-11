@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
@@ -11,32 +11,43 @@ import { throwError } from 'rxjs';
     styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  bodyFrm:any;
     signupfrm:any;
+    registerfrm:any;
     memberId:String;
     role:String;
+    showRegister=false;
+    showLogin=true;
     private _loginUrl = 'http://localhost:8080/login'; 
+    showPassword=false;
+    showFirstValidate=true;
+    private _InfoUrl ='http://localhost:8080/getMemberBy/';
+    private _registerUrl='http://localhost:8080/addUser';
+
+
     constructor(private router: Router, private formb: FormBuilder, private _http: HttpClient) {
         this.signupfrm =new FormGroup({
             email: new FormControl(),
             password: new FormControl()
             });
+        this.registerfrm =new FormGroup({
+            ponum: new FormControl(),
+            mat: new FormControl( ),
+            password: new FormControl(),
+            confirmpassword: new FormControl(),
+            login: new FormControl()
+            });
     }
     private body: any;
+    private registerBody: any;
 
     ngOnInit() {}
 
     onLogin() {
- 
-       console.log(this.signupfrm.value.email);
-     //  this.body = new HttpParams()
-       //.set('login', this.signupfrm.value.email)
-       //.set('password', this.signupfrm.value.password);
+      console.log("onLogin");
        this.body= {};
        this.body['login'] = this.signupfrm.value.email;
        this.body['password'] = this.signupfrm.value.password;
-       //'{"login":"'
-       //+this.signupfrm.value.email+'","password":"'+this.signupfrm.value.password+'"}';
-       
          this._http.post(this._loginUrl,
           this.body,
             {
@@ -82,4 +93,42 @@ export class LoginComponent implements OnInit {
     return throwError(
       'Something bad happened; please try again later.');
   }
+
+
+  OnRegister(){
+  this.showRegister=true;
+  this.showLogin=false;
+  }
+
+  OnCheckMember(){
+   
+    this._http.get(this._InfoUrl+this.registerfrm.value.mat+'/'+this.registerfrm.value.ponum).subscribe(info =>{
+      console.log(info)
+      this.registerBody=info;
+      if(this.registerBody.numP!='0'){ this.showPassword=true;
+        this.showFirstValidate=false;}
+  });}
+
+  responseRegister:any;
+  OnSaveInfos(){
+    this.bodyFrm= {};
+    this.bodyFrm['login'] = this.registerfrm.value.login;
+    this.bodyFrm['password'] = this.registerfrm.value.password;
+    this.bodyFrm['mat'] = this.registerfrm.value.mat;
+    this.bodyFrm['ponum'] = this.registerfrm.value.ponum;
+    
+      this._http.post(this._registerUrl,
+       this.bodyFrm,
+         {
+           headers: new HttpHeaders()
+             .set('Content-Type', 'application/json')
+         }
+       ).subscribe(resp => {console.log(resp)
+         this.responseRegister=resp;
+       console.log(this.responseRegister.ponum)  
+        if(this.responseRegister.ponum==1){   this.showRegister=false;
+          this.showLogin=true;}});
+
+  }
+
 }

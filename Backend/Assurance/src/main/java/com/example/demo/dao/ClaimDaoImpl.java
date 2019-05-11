@@ -1,9 +1,12 @@
 package com.example.demo.dao;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.sql.Timestamp;
 
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
@@ -35,7 +38,7 @@ import com.example.demo.entities.Member;
 
 	 Logger logger = LoggerFactory.getLogger(MemberDaoImpl.class);
 	
-	public List<Claim> getClaimsByClientMat(String matricule, BigDecimal ponum){
+	public List<Claim> getClaimsByClientMat(String matricule, BigDecimal ponum) throws ParseException{
 		List<Claim> clientClaims = new ArrayList<Claim>();
 		
 		 String sql = "select * from reclamation where mat='"+matricule+"' and ponum="+ponum;
@@ -57,7 +60,14 @@ import com.example.demo.entities.Member;
 	           claim.setId((BigDecimal)ligne[0]);
 	           claim.setType((String)ligne[1]);
 	           claim.setDescription((String)ligne[2]);
-	           claim.setDateClaim((Date)ligne[3]);
+	           Timestamp ts=(Timestamp)ligne[3];
+
+	       	
+	       	SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+	       	Date date=new Date(ts.getTime()); 
+	      // 	logger.info(format.parse(format.format(date)).toString());
+	       	logger.info(format.format(date));
+	           claim.setDateClaim(format.format(date));
 	           BigDecimal i = (BigDecimal)ligne[4];
 	           if (i.equals(0)){
 	        	   claim.setStatus(false);
@@ -76,21 +86,33 @@ import com.example.demo.entities.Member;
 	
 	public int addClaim(String type, String description, String mat, BigDecimal ponum, String joinedFile) {
 	Date d = new Date();
+	Date   date =null;
+	
+	SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+
+	String dateString = format.format( new Date());
+	logger.info(dateString);
+	try {
+   date   = format.parse (dateString);
+	} catch (ParseException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}  
 		StringBuilder builder= new StringBuilder();
-		 builder.append("insert into reclamation (seq_reclamation.nextval(),'"+type+"', '"+description+"','"+d.toString()+"',0,'"+joinedFile+"', '"+mat+"',"+ponum) ;
+		 builder.append("insert into reclamation values (seq_reclamation.nextval,'"+type+"', '"+description+"','"+dateString+"',0,'"+joinedFile+"', '"+mat+"',"+ponum+")") ;
     	 
     	 Session  session = this.sessionFactory.openSession();
 		   	
-	   	 
- 		
 	   	 Transaction tx = null;
 	   	 tx=session.beginTransaction();
 	   	SQLQuery query = session
                 .createSQLQuery(builder.toString());
-	   	 
+	   	logger.info(query.getQueryString());
+ 		
     int resp=	query.executeUpdate();
     	logger.info("after insert");
         tx.commit(); // this is important
+        session.clear();
 	
 	return resp;
 	}

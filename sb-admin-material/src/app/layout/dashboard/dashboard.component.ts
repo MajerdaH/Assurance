@@ -24,12 +24,17 @@ export class DashboardComponent implements OnInit {
     memberInfos:any;
     name;
     showDetailsBull:boolean;
+    bulln:string;
 
     applyFilter(filterValue: string) {
         filterValue = filterValue.trim(); // Remove whitespace
         filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
         this.dataSource.filter = filterValue;
     }
+
+
+    searchBull(bulln:string){console.log(bulln);
+      }
 
     constructor(private _http: HttpClient, private router: Router) {
 

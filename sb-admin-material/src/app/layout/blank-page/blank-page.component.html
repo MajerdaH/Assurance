@@ -1,0 +1,35 @@
+<div>
+    <mat-card>
+      <mat-card-header>
+          <mat-card-title style="color: #006654"><b>Ajouter Prestataire</b></mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+          <label class="example-margin"><b>Type Prestatire: </b></label>
+          <mat-radio-group [(ngModel)]="type">
+              <mat-radio-button class="example-margin" value="Réclamation">Conjoint(e)</mat-radio-button>
+              <mat-radio-button class="example-margin" value="Suggestion">Enfant 1</mat-radio-button>
+              <mat-radio-button class="example-margin" value="Suggestion">Enfant 2</mat-radio-button>
+              <mat-radio-button class="example-margin" value="Suggestion">Enfant 3</mat-radio-button>
+          </mat-radio-group>
+        </mat-card-content>
+        <mat-card-content>
+          <mat-form-field>
+              <input matInput placeholder="Nom et Prénom"  [(ngModel)]="name">
+          </mat-form-field>
+        </mat-card-content>
+        <mat-card-content>
+            <mat-form-field>
+                <input matInput [matDatepicker]="picker" placeholder="Date de naissance">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+      </mat-card-content>
+      <input type="file" name="photo" mat-raised-button color="primary" ng2FileSelect [uploader]="uploader" />
+    
+    <button type="button" mat-raised-button color="primary"
+      (click)="uploader.uploadAll()" 
+      [disabled]="!uploader.getNotUploadedItems().length" >
+          Importer
+    </button> <br><button (click)="validateClaim()" mat-raised-button color="primary">Confirmer</button>
+    </mat-card>
+    </div>

@@ -14,7 +14,7 @@
       <table mat-table [dataSource]="claims" class="mat-elevation-z5">
           <ng-container matColumnDef="bull">
               <th mat-header-cell *matHeaderCellDef>Post Date </th>
-              <td mat-cell *matCellDef="let element"> {{element.postDate}} </td>
+              <td mat-cell *matCellDef="let element"> {{element.dateClaim}} </td>
           </ng-container>
           <ng-container matColumnDef="careDate">
               <th mat-header-cell *matHeaderCellDef> Type </th>
@@ -44,19 +44,19 @@
   </mat-card-header>
   <mat-card-content>
       <label class="example-margin"><b>Type: </b></label>
-      <mat-radio-group [(ngModel)]="labelPosition">
-          <mat-radio-button class="example-margin" value="after">Réclamation</mat-radio-button>
-          <mat-radio-button class="example-margin" value="before">Suggestion</mat-radio-button>
+      <mat-radio-group [(ngModel)]="type">
+          <mat-radio-button class="example-margin" value="Réclamation">Réclamation</mat-radio-button>
+          <mat-radio-button class="example-margin" value="Suggestion">Suggestion</mat-radio-button>
       </mat-radio-group>
     </mat-card-content>
     <mat-card-content>
       <mat-form-field>
-          <input matInput placeholder="Titre">
+          <input matInput placeholder="Titre"  [(ngModel)]="title">
       </mat-form-field>
     </mat-card-content>
     <mat-card-content>
       <mat-form-field>
-          <textarea matInput placeholder="Description"></textarea>
+          <textarea matInput placeholder="Description"  [(ngModel)]="description"></textarea>
       </mat-form-field> 
   </mat-card-content>
   <input type="file" name="photo" mat-raised-button color="primary" ng2FileSelect [uploader]="uploader" />
@@ -64,7 +64,7 @@
 <button type="button" mat-raised-button color="primary"
   (click)="uploader.uploadAll()" 
   [disabled]="!uploader.getNotUploadedItems().length" >
-      Confirmer
-</button>
+      Importer
+</button> <br><button (click)="validateClaim()" mat-raised-button color="primary">Envoyer la réclamation</button>
 </mat-card>
 </div>

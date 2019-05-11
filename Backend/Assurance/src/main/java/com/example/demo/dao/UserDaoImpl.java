@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +46,7 @@ public class UserDaoImpl implements UserDao{
 	      	  SQLQuery  query = session.createSQLQuery(sql);
 	         logger.info(query.getQueryString());
 	        
-	         Object ligneAsObject = query.getSingleResult();
+	         Object ligneAsObject = query.getResultList().get(0);
 
 	             // ligne correspond à une des lignes du résultat
 	            Object[] ligne = (Object[]) ligneAsObject ;
@@ -94,6 +95,40 @@ public class UserDaoImpl implements UserDao{
 		 return result;
 		 
 	}
+
+	public int addUser(String newPassword, String username, BigDecimal ponum, String mat) {
+		logger.info("new " + newPassword);
+		logger.info("ponum " + ponum);
+		String sql = "insert into appuser values (seq_user.nextval, :username , :newPassword, 'member', :ponum, :mat)";
+		Session session;
+		int result = 0;
+		try {
+			session = this.sessionFactory.openSession();
+
+			Transaction tx = null;
+			tx = (Transaction) session.beginTransaction();
+
+			SQLQuery query = session.createSQLQuery(sql);
+			query.setParameter("username", username);
+			query.setParameter("newPassword", newPassword);
+			query.setParameter("ponum", ponum);
+			query.setParameter("mat", mat);
+
+			logger.info(query.getQueryString());
+
+			result = query.executeUpdate();
+			
+			tx.commit(); // this is important
+	session.close();
+			logger.info("after update"+result);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+		return result;
+
+	}
+
+
 
 
 }

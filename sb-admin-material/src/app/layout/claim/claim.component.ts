@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
 import {  FileUploader, FileSelectDirective } from 'ng2-file-upload/ng2-file-upload';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 export interface ClaimElement {
@@ -24,6 +24,9 @@ const URL = 'http://localhost:3000/api/upload';
   styleUrls: ['./claim.component.scss']
 })
 export class ClaimComponent implements OnInit {
+  type:string;
+  title:string;
+  description:string;
   name:string;
   claimForm:any;
 claims:any;
@@ -32,6 +35,8 @@ showClaims:boolean;
 displayedColumns = ['bull','careDate','setDate','cPolicy', 'progress'];
 dataSource: MatTableDataSource<any>;
 private _InfoUrl ='http://localhost:8080/getMemberClaimsBy/';
+
+private ClaimURL = 'http://localhost:8080/addClaim';
 public uploader: FileUploader = new FileUploader({url: URL, itemAlias: 'photo'});
 
 constructor(private _http: HttpClient, private router: Router) {
@@ -63,12 +68,32 @@ constructor(private _http: HttpClient, private router: Router) {
     this.showAddSuggestion=false;
     this.showClaims=true;
   }
-
+bodyFrm:any;
 addClaim(){
 this.showAddSuggestion=!this.showAddSuggestion;
+this.showClaims=!this.showClaims;}
+
+
+validateClaim(){
+console.log(this.title);
+console.log(this.type);
+this.bodyFrm={};
+this.bodyFrm['title']=this.title;
+this.bodyFrm['description']=this.description;
+this.bodyFrm['type']=this.type;
+this.bodyFrm['ponum']=localStorage.getItem('ponum');
+this.bodyFrm['mat']=localStorage.getItem('mat');
+this._http.post(this.ClaimURL,
+  this.bodyFrm,
+    {
+      headers: new HttpHeaders()
+        .set('Content-Type', 'application/json')
+    }
+  ).subscribe(resp => {console.log(resp)});
+  this.bodyFrm['dateClaim']=new Date();;
+this.claims.push(this.bodyFrm)
+this.showAddSuggestion=!this.showAddSuggestion;
 this.showClaims=!this.showClaims;
-
-
 }
 
   getAllClaims(){

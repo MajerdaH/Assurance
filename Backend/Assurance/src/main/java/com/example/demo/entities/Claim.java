@@ -23,7 +23,7 @@ public class Claim implements Serializable{
 	
 	private String type;
 	private String description;
-	private Date dateClaim;
+	private String dateClaim;
 	private boolean status;
 	private String joinedFile;
 	private String matricule;
@@ -54,10 +54,10 @@ public class Claim implements Serializable{
 	}
 	
 	@Column(name="DATEREC")
-	public Date getDateClaim() {
+	public String getDateClaim() {
 		return dateClaim;
 	}
-	public void setDateClaim(Date dateClaim) {
+	public void setDateClaim(String dateClaim) {
 		this.dateClaim = dateClaim;
 	}
 	

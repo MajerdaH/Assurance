@@ -8,6 +8,8 @@ import { StatModule } from '../../shared/modules/stat/stat.module';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
 import { FormsModule } from '@angular/forms';
+//import { DialogOverviewExampleDialogComponent } from 'src/app/dialog-overview-example-dialog/dialog-overview-example-dialog.component';
+//import { DialogOverviewExampleDialogModule } from 'src/app/dialog-overview-example-dialog/dialog-overview-example-dialog.module';
 
 @NgModule({
     imports: [FormsModule,
@@ -23,5 +25,6 @@ import { FormsModule } from '@angular/forms';
         FlexLayoutModule.withConfig({addFlexToParent: false})
     ],
     declarations: [DashboardComponent]
+  // , entryComponents: [ DialogOverviewExampleDialogModule ]
 })
 export class DashboardModule {}

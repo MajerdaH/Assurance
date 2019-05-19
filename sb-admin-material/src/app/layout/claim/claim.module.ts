@@ -5,7 +5,6 @@ import { ClaimRoutingModule } from './claim-routing-module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule, MatIconModule, MatTableModule, MatCardModule } from '@angular/material';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { FileSelectDirective } from 'ng2-file-upload';
 
 import { StatModule } from '../../shared/modules/stat/stat.module';
 import { FormsModule as FormModule, ReactiveFormsModule } from '@angular/forms';
@@ -16,7 +15,7 @@ import {
 } from '@angular/material';
 
 @NgModule({
-  declarations: [ClaimComponent, FileSelectDirective],
+  declarations: [ClaimComponent],
   imports: [ CommonModule,
     MatGridListModule,
     StatModule,

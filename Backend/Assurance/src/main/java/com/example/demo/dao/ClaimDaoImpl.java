@@ -36,7 +36,7 @@ import com.example.demo.entities.Member;
 		    
 		    }
 
-	 Logger logger = LoggerFactory.getLogger(MemberDaoImpl.class);
+	 Logger logger = LoggerFactory.getLogger(ClaimDaoImpl.class);
 	
 	public List<Claim> getClaimsByClientMat(String matricule, BigDecimal ponum) throws ParseException{
 		List<Claim> clientClaims = new ArrayList<Claim>();

@@ -9,7 +9,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { FormsModule as FormModule } from '@angular/forms';
-import { FileSelectDirective } from 'ng2-file-upload';
 
 @NgModule({
     imports: [CommonModule, BlankPageRoutingModule,
@@ -35,6 +34,6 @@ import { FileSelectDirective } from 'ng2-file-upload';
         MatSliderModule,
         FlexLayoutModule.withConfig({addFlexToParent: false})
     ],
-    declarations: [BlankPageComponent, FileSelectDirective]
+    declarations: [BlankPageComponent]
 })
 export class BlankPageModule {}

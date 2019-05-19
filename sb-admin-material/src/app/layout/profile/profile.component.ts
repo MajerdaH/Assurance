@@ -14,11 +14,13 @@ export class ProfileComponent implements OnInit {
   private _InfoUrl ='http://localhost:8080/getMemberBy/';
   private _partnersUrl ='http://localhost:8080/getPartnersBy/';
   private _modifyUrl = 'http://localhost:8080/changeMemberInfos'; 
+  private _pwdurl='http://localhost:8080/changePassword';
 enrolled: boolean;
 wife: boolean;
  child1: boolean;
   child2: boolean;
   child3: boolean;
+  showModifyPwd:boolean;
   wifeInfos= new Member();
   child1Infos= new Member();
   child2Infos= new Member();
@@ -32,13 +34,19 @@ modifyForm:any;
 ponum:any; mat:any;
 private body: any;
 showPartners:boolean;
+pwdFormGroup:any;
 constructor(private router: Router, private _http: HttpClient) {
   this.showPartners=true;
+  this.showModifyPwd=false;
   this.modifyForm =new FormGroup({
     rib: new FormControl(),
     phone: new FormControl(),
     address: new FormControl()
     });
+    this.pwdFormGroup =new FormGroup({
+      new: new FormControl(),
+      old: new FormControl()
+      });
   if (!localStorage.getItem('isLoggedin') || localStorage.getItem('isLoggedin')=='false') {
     this.router.navigate(['/login']);
 
@@ -70,6 +78,7 @@ this.initMember();
   this.member.status=this.memberInfos.sit;
   this.member.cp=this.memberInfos.cp;
   this.member.joinDate=this.memberInfos.joinDate;
+  this.member.ponum=this.memberInfos.numP;
     });
     this.enrolled=true;
     this._http.get(this._partnersUrl+this.mat+'/'+this.ponum).subscribe(info =>{ console.log(info)
@@ -133,6 +142,29 @@ validateModifyInfos(){
 
             this.showModifyInfos=false;}
           })
+}
+
+
+showChangePwd(){
+  console.log("pwd")
+  this.showModifyPwd=true;
+}
+pwdBody:any;
+changePassword(){
+  this.pwdBody={}
+  this.pwdBody['mat']=this.member.matricule;
+  this.pwdBody['ponum']=this.member.ponum;
+  this.pwdBody['newPassword']=this.pwdFormGroup.value.new;
+  this.pwdBody['oldPassword']=this.pwdFormGroup.value.old;
+  console.log(this.pwdFormGroup.value.new)
+  this.showModifyPwd=false;
+  this._http.post(this._pwdurl,
+    this.pwdBody,
+      {
+        headers: new HttpHeaders()
+          .set('Content-Type', 'application/json')
+      }
+        ).subscribe(resp => {console.log(resp);});
 }
 
 ngOnInit(){}

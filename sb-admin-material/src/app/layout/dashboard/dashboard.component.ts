@@ -1,9 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { DialogOverviewExampleDialogComponent } from 'src/app/dialog-overview-example-dialog/dialog-overview-example-dialog.component';
 
-
+export interface DialogData {
+    animal: string;
+    name: string;
+  }
 
 @Component({
     selector: 'app-dashboard',
@@ -15,11 +20,12 @@ export class DashboardComponent implements OnInit {
     private _InfoUrl ='http://localhost:8080/getMemberBy/';
     private _BullDetailsUrl= 'http://localhost:8080/getMemberRefundsBy/';
     refundsDetails:any;
+    showAllBulls:any;
     refunds:any;
     places: Array<any> = [];
     matricule:string;
     ponum:number;
-    displayedColumns = ['bull','careDate','setDate','cPolicy', 'name', 'progress', 'color','action'];
+    displayedColumns = ['bull','setDate', 'name', 'progress', 'color','status','action'];
     dataSource: MatTableDataSource<any>;
     memberInfos:any;
     name;
@@ -36,8 +42,9 @@ export class DashboardComponent implements OnInit {
     searchBull(bulln:string){console.log(bulln);
       }
 
-    constructor(private _http: HttpClient, private router: Router) {
-
+    constructor(private _http: HttpClient, private router: Router, public dialog: MatDialog) {
+        this.showAllBulls=true;
+        this.showDetailsBull=false;
         console.log(localStorage.getItem('isLoggedin'));
         this.showDetailsBull=false;
         if (!localStorage.getItem('isLoggedin') || localStorage.getItem('isLoggedin')=='false') {
@@ -53,7 +60,8 @@ export class DashboardComponent implements OnInit {
             localStorage.setItem('memberName', this.name);
         }); 
 
-        this._http.get(this._loginUrl+mat+'/'+ponum).subscribe(resp => this.refunds=resp); 
+        this._http.get(this._loginUrl+mat+'/'+ponum).subscribe(resp => {this.refunds=resp,
+            console.log(resp)}); 
             this.getAllRefunds();
 
 //console.log(this.refunds)
@@ -70,12 +78,27 @@ this.dataSource=this.refunds;
 
 showDetailsBulletin(wbul:number){
     this.showDetailsBull=true
+    this.showAllBulls=false;
     console.log(localStorage.getItem('ponum'));
     let ponum=localStorage.getItem('ponum');
     console.log(localStorage.getItem('mat'));
     let mat=localStorage.getItem('mat');
-    this._http.get(this._BullDetailsUrl+mat+'/'+ponum+'/'+wbul).subscribe(resp => this.refundsDetails=resp); 
-    this.getAllRefunds();
+    this._http.get(this._BullDetailsUrl+mat+'/'+ponum+'/'+wbul).subscribe(resp => 
+        {this.refundsDetails=resp; console.log(resp);});
+       // this.getAllRefunds();
 }
-    }
+showBack(){
+    this.showAllBulls=true;
+    this.showDetailsBull=false;
+}
+/*openDialog(){
+    const dialogRef = this.dialog.open(DialogOverviewExampleDialogComponent, {
+      width: '250px',
+      data: {name: "hejer", animal: "mej"}
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }*/
+    }

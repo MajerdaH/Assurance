@@ -1,6 +1,7 @@
 package com.example.demo.dao;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
@@ -67,27 +68,31 @@ public class UserDaoImpl implements UserDao{
    }
 	
 	
-	public int changePassword(String oldPassword, String newPassword, BigDecimal userId ) {
+	public int changePassword(String oldPassword, String newPassword, BigDecimal ponum, String mat ) {
 		logger.info("old "+oldPassword);
 		logger.info("new "+newPassword);
-		logger.info("userId "+userId);
-		 String sql = "select * from appuser where id="+userId;
+		 String sql = "select * from appuser where ponum="+ponum+" and mat='"+mat+"'";
 	   	 Session session;
 	   	 int result=0;
 		 try{
 	         session = this.sessionFactory.openSession();
 	      	  SQLQuery  query = session.createSQLQuery(sql);
 	         logger.info(query.getQueryString());
-	         Object ligneAsObject = query.getSingleResult();
+	         Object ligneAsObject = query.getResultList().get(0);
 
 	             // ligne correspond à une des lignes du résultat
-	            Object[] ligne = (Object[]) ligneAsObject ;
+	            Object[] ligne = (Object[]) ligneAsObject;
 	            String currentPassword=(String)ligne[2];
-	            if(currentPassword.equals(oldPassword)) {
-	            	String sqlUpdate="update appuser set password='"+newPassword+"' where id="+userId;
+	            logger.info("current "+currentPassword);
+	            if(currentPassword.contains(oldPassword)) {
+	            	logger.info("equals");
+	            	Transaction tx= session.beginTransaction();
+	            	String sqlUpdate="update appuser set password='"+newPassword+"' where ponum="+ponum+" and mat='"+mat+"'";
 	            			SQLQuery  queryUpdate = session.createSQLQuery(sqlUpdate);
 	            			 result = queryUpdate.executeUpdate();
-	            }
+	            			 tx.commit();
+	            			 logger.info("update "+result);
+	            }else {logger.info("not equals");}
 	        	
    	 }catch(Exception e){
    		 logger.error(e.getMessage()); 

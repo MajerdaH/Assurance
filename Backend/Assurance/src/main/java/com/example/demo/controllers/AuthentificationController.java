@@ -84,17 +84,19 @@ try {
 		
 		 json=payload;
 		  String newPassword=(String) json.get("newPassword");
-		  System.out.println("***********************newPassword "+newPassword);
 		  String oldPassword=(String) json.get("oldPassword");
-		  System.out.println("***********************oldPassword "+oldPassword);
-		  BigDecimal userId=(BigDecimal) json.get("userId");
+		  String mat=(String) json.get("mat"); 
+		  Integer sponum=(Integer) json.get("ponum");
+		  BigDecimal ponum=new BigDecimal(sponum);
 		
-		 int result= userDao.changePassword(oldPassword, newPassword, userId);
-		 if (result ==0){
+		 int result= userDao.changePassword(oldPassword, newPassword, ponum, mat);
+		 if (result >0){
 			response="OK";
 		 }
 		 else {response="ERROR";}
-	      
+
+	  		ObjectMapper objMapper = new ObjectMapper();
+		  response=objMapper.writeValueAsString(response);
 }
 	catch(Exception e) {
 		e.printStackTrace();

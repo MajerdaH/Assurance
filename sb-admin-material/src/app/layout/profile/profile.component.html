@@ -1,3 +1,8 @@
+<div class="col-sm-6">
+    <div  align="center"> <img alt="User Pic" src="https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg" id="profile-image1" class="img-circle img-responsive"> 
+</div></div>
+
+
 <div class="mb-20" fxFlex fxLayout="row" fxLayout.lt-md="column">
     <div fxFlex>
         <mat-card style="background-color:#466341;color: cornsilk" fxFlexFill fxLayoutAlign="center center">
@@ -6,10 +11,43 @@
     </div>
 </div>
 <div class="mb-20" fxFlex fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px">
+        <div [fxFlex]="50">
+    <mat-card fxFlexFill fxLayoutAlign="center center">
+            <span> Login:</span>  hejer
+    </mat-card>
+</div>
+<div [fxFlex]="50">
+    <mat-card fxFlexFill fxLayoutAlign="center center">
+      <span> Mot de passe</span>  hello
+    </mat-card>
+</div>
+<button (click)="showChangePwd()">Changer mot de passe</button>
+</div>
+<div  *ngIf="showModifyPwd">
+        <form class="login-form" fxFlex (ngSubmit)="changePassword()" [formGroup]="pwdFormGroup">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Modifier Mot de passe:</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                    <section class="example-section">
+                    <mat-form-field class="example-margin">
+                        <input matInput type="text" placeholder="Ancien mot de passe"  formControlName="old">
+                    </mat-form-field>
+                    <mat-form-field class="example-margin">
+                        <input matInput type="text" placeholder="Nouveau mot de passe" formControlName="new">
+                    </mat-form-field>
+                     
+        <button mat-raised-button color="primary" style="margin-bottom: 1%" (click)="changePassword()">Confirmer</button>    
+                </section>
+            </mat-card-content>
+        </mat-card></form></div>
+        
+<div class="mb-20" fxFlex fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px">
     <div [fxFlex]="50">
             <mat-card fxFlexFill fxLayoutAlign="center center">
-                    <span>Société : </span> 
-                    ABC company
+                    <span>Police : </span> 
+                    {{member.ponum}} 
                    </mat-card>
         </div>
         <div [fxFlex]="50">
@@ -26,50 +64,49 @@
           {{member.firstname}} {{member.lastname}}
         </mat-card>
     </div>
-    <div [fxFlex]="25">
+    <div [fxFlex]="50">
         <mat-card fxFlexFill fxLayoutAlign="center center">
                 <span>Télephone : </span> 
                 {{member.phone}}
         </mat-card>
     </div>
-    <div [fxFlex]="25">
-        <mat-card fxFlexFill fxLayoutAlign="center center">
-        <span>  Date de naissance: </span> {{member.birthdate}}
-        </mat-card>
-    </div>
+  
 </div>
 <div class="mb-20" fxFlex fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px">
-        <div [fxFlex]="35">
+        <div [fxFlex]="50">
+                <mat-card fxFlexFill fxLayoutAlign="center center">
+                <span>  Date de naissance: </span> {{member.birthdate}}
+                </mat-card>
+            </div>
+        <div [fxFlex]="50">
                 <mat-card fxFlexFill fxLayoutAlign="center center">
                         <span> Pays:</span>  {{member.country}} 
                 </mat-card>
             </div> 
-            <div [fxFlex]="35">
-        <mat-card fxFlexFill fxLayoutAlign="center center">
-                <span> Ville:</span>  {{member.city}} 
-        </mat-card>
-    </div>
-    <div [fxFlex]="30">
-        <mat-card fxFlexFill fxLayoutAlign="center center">
-          <span> Code Postal:</span>  {{member.cp}}
-        </mat-card>
-    </div>
 </div>
     <div class="mb-20" fxFlex fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px">
-            <div [fxFlex]="25">
+            <div [fxFlex]="50">
                     <mat-card fxFlexFill fxLayoutAlign="center center">
                             <span> Adresse:</span> {{member.address}} 
                     </mat-card>
                 </div> 
+            <div [fxFlex]="50">
+                    <mat-card fxFlexFill fxLayoutAlign="center center">
+                      <span> Code Postal:</span>  {{member.cp}}
+                    </mat-card>
+                </div>
+    </div>
+    <div class="mb-20" fxFlex fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px">
                 <div [fxFlex]="50">
             <mat-card fxFlexFill fxLayoutAlign="center center">
                     <span> Date d'entrée à l'assurance:</span>  {{member.joinDate}} 
             </mat-card>
         </div>
-        <div [fxFlex]="25">
+        <div [fxFlex]="50">
             <mat-card fxFlexFill fxLayoutAlign="center center">
               <span> RIB:</span>  {{member.rib}}
-            </mat-card></div>
+            </mat-card>
+        </div>
         </div>
         <button color="primary" style="margin-bottom: 1%" (click)="modifyInfos()">Modifier</button>
 

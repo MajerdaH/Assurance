@@ -59,7 +59,7 @@
           <textarea matInput placeholder="Description"  [(ngModel)]="description"></textarea>
       </mat-form-field> 
   </mat-card-content>
-  <input type="file" name="photo" mat-raised-button color="primary" ng2FileSelect [uploader]="uploader" />
+  <input type="file" name="photo" mat-raised-button color="primary" ng2FileSelect />
 
 <button type="button" mat-raised-button color="primary"
   (click)="uploader.uploadAll()" 

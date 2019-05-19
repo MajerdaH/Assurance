@@ -25,6 +25,8 @@ public class Refund implements Serializable{
 	private BigDecimal payedAmount;
 	private BigDecimal refundedAmount;
 	private String settlementDate;
+	private String message;
+	private String status;
 	
 	@Column(name = "WPOL")
 	public String getCompanyPolice() {
@@ -110,6 +112,18 @@ public class Refund implements Serializable{
 	}
 	public void setSettlementDate(String settlementDate) {
 		this.settlementDate = settlementDate;
+	}
+	public String getMessage() {
+		return message;
+	}
+	public void setMessage(String message) {
+		this.message = message;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
 	

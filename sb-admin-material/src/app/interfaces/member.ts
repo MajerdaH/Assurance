@@ -17,6 +17,7 @@ export class Member {
     cp:string;
     matricule:string;
     joinDate:string;
+    ponum:string;
 
     constructor(){}
 

@@ -10,7 +10,7 @@ public interface UserDao {
 	
 	public User signIn(String username, String password);
 
-	public int changePassword(String oldPassword, String newPassword, BigDecimal userId );
+	public int changePassword(String oldPassword, String newPassword, BigDecimal ponum, String mat );
 	public int addUser(String newPassword, String username, BigDecimal ponum, String mat);
 
 }
